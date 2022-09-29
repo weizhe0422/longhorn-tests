@@ -1,6 +1,7 @@
 import pytest
 import time
 import json
+import subprocess
 
 from datetime import datetime
 
@@ -32,6 +33,8 @@ from common import wait_for_volume_recurring_job_update
 from common import wait_volume_kubernetes_status
 from common import write_pod_volume_random_data
 from common import write_volume_random_data
+from common import generate_volume_name
+from common import DEFAULT_VOLUME_SIZE
 
 from common import create_and_wait_deployment
 from common import wait_deployment_replica_ready
@@ -67,7 +70,7 @@ from common import RETRY_BACKUP_COUNTS
 from common import RETRY_BACKUP_INTERVAL
 from common import SETTING_RECURRING_JOB_WHILE_VOLUME_DETACHED
 from common import SIZE, Mi, Gi
-
+from common import SETTING_RECURRING_SUCCESSFULE_JOBS_HISTORY_LIMIT
 
 RECURRING_JOB_LABEL = "RecurringJob"
 RECURRING_JOB_NAME = "recurring-test"
@@ -670,6 +673,52 @@ def test_recurring_job_detached_volume(client, batch_v1_beta_api, volume_name): 
     time.sleep(60 * 2)
     wait_for_snapshot_count(volume, 2)
 
+@pytest.mark.parametrize(
+    "setting_name, recurring_jobs_history_limit",
+    [
+        pytest.param(SETTING_RECURRING_SUCCESSFULE_JOBS_HISTORY_LIMIT, "2")
+    ],
+)
+def test_recurring_jobs_history_limits(set_random_backupstore, client,
+                                       batch_v1_beta_api,
+                                       setting_name,
+                                       recurring_jobs_history_limit):
+    """
+    """
+    # Step 1
+    common.update_setting(client, setting_name, recurring_jobs_history_limit)
+
+    # Step 2
+    test_volume_name = generate_volume_name()
+    client.create_volume(name=test_volume_name,
+                         size=str(DEFAULT_VOLUME_SIZE * Gi))
+    volume = wait_for_volume_detached(client, test_volume_name)
+    volume.attach(hostId=get_self_host_id())
+    volume = wait_for_volume_healthy(client, test_volume_name)
+
+    # Step 3
+    recurring_jobs = {
+        RECURRING_JOB_NAME: {
+            TASK: BACKUP,
+            GROUPS: [DEFAULT],
+            CRON: SCHEDULE_1MIN,
+            RETAIN: 2,
+            CONCURRENCY: 1,
+            LABELS: {},
+        },
+    }
+    create_recurring_jobs(client, recurring_jobs)
+    check_recurring_jobs(client, recurring_jobs)
+    wait_for_cron_job_count(batch_v1_beta_api, 1)
+
+    # Step 4
+    time.sleep(60 * 3)
+    #kubectl get jobs -n longhorn-system | grep -v ^NAME | grep "1/1" | wc -l
+    exec_cmd = ["kubectl", "get", "jobs", "-n", "longhorn-system", 
+                #"|", "grep", "-v", "^NAME",
+                "|", "grep", "1/1",
+                "|", "wc", "-l"]
+    assert subprocess.check_output(exec_cmd) == recurring_jobs_history_limit
 
 def test_recurring_jobs_allow_detached_volume(set_random_backupstore, client, core_api, apps_api, volume_name, make_deployment_with_pvc):  # NOQA
     """

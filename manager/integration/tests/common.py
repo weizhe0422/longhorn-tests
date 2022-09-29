@@ -177,6 +177,8 @@ SETTING_BACKING_IMAGE_CLEANUP_WAIT_INTERVAL = \
 SETTING_DISABLE_REVISION_COUNTER = "disable-revision-counter"
 SETTING_ORPHAN_AUTO_DELETION = "orphan-auto-deletion"
 SETTING_FAILED_BACKUP_TTL = "failed-backup-ttl"
+SETTING_RECURRING_SUCCESSFULE_JOBS_HISTORY_LIMIT = "recurring-successful-jobs-history-limit"
+SETTING_RECURRING_FAILED_JOBS_HISTORY_LIMIT = "recurring-failed-jobs-history-limit"
 
 CSI_UNKNOWN = 0
 CSI_TRUE = 1
