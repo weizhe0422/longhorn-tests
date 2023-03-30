@@ -1,0 +1,370 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<robot generator="Robot 5.0 (Python 3.10.6 on linux)" generated="20230407 18:02:30.896" rpa="false" schemaversion="3">
+<suite id="s1" name="TestCases" source="/home/ray_chang/go/src/github.com/weizhe0422/longhorn-tests/manager/integration/negative_tests/Node_NotReady/TestCases.robot">
+<test id="s1-t1" name="RWO volume with replica on attached node and power off it" line="13">
+<kw name="Set Test Name" library="steps" type="SETUP">
+<arg>${TEST NAME}</arg>
+<status status="FAIL" starttime="20230407 18:02:31.091" endtime="20230407 18:03:01.906"/>
+</kw>
+<kw name="Cleanup Resources" library="steps" type="TEARDOWN">
+<msg timestamp="20230407 18:03:01.907" level="INFO">cleanup_resources</msg>
+<msg timestamp="20230407 18:03:01.907" level="FAIL">AttributeError: 'steps' object has no attribute 'node_exec'</msg>
+<msg timestamp="20230407 18:03:01.907" level="DEBUG">Traceback (most recent call last):
+  File "/home/ray_chang/go/src/github.com/weizhe0422/longhorn-tests/manager/integration/framework/steps.py", line 73, in cleanup_resources
+    self.node_exec.cleanup()
+AttributeError: 'steps' object has no attribute 'node_exec'</msg>
+<status status="FAIL" starttime="20230407 18:03:01.907" endtime="20230407 18:03:01.907">AttributeError: 'steps' object has no attribute 'node_exec'</status>
+</kw>
+<status status="FAIL" starttime="20230407 18:02:31.091" endtime="20230407 18:03:01.907">Setup failed:
+Execution terminated by signal
+
+Also teardown failed:
+AttributeError: 'steps' object has no attribute 'node_exec'</status>
+</test>
+<test id="s1-t2" name="RWO volume with replica on attached node, and Power off the node ${non_volunme_attached_node}" line="25">
+<tag>robot:exit</tag>
+<status status="FAIL" starttime="20230407 18:03:01.908" endtime="20230407 18:03:01.908">Test execution stopped due to a fatal error.</status>
+</test>
+<test id="s1-t3" name="RWO volume with replica on attached node, and Reboot the node ${volunme_attached_node}" line="36">
+<tag>robot:exit</tag>
+<status status="FAIL" starttime="20230407 18:03:01.908" endtime="20230407 18:03:01.909">Test execution stopped due to a fatal error.</status>
+</test>
+<test id="s1-t4" name="RWO volume with replica on attached node, and Reboot the node ${non_volunme_attached_node}" line="48">
+<tag>robot:exit</tag>
+<status status="FAIL" starttime="20230407 18:03:01.909" endtime="20230407 18:03:01.909">Test execution stopped due to a fatal error.</status>
+</test>
+<test id="s1-t5" name="RWO volume with replica on attached node, and Restart Kubelet on the node ${volunme_attached_node}" line="60">
+<tag>robot:exit</tag>
+<status status="FAIL" starttime="20230407 18:03:01.910" endtime="20230407 18:03:01.910">Test execution stopped due to a fatal error.</status>
+</test>
+<test id="s1-t6" name="RWO volume with replica on attached node, and restart Kubelet on the non volume-attached node" line="72">
+<tag>robot:exit</tag>
+<status status="FAIL" starttime="20230407 18:03:01.910" endtime="20230407 18:03:01.911">Test execution stopped due to a fatal error.</status>
+</test>
+<test id="s1-t7" name="RWO volume with replica on attached node, and Power off the node ${volunme_attached_node}" line="84">
+<tag>robot:exit</tag>
+<status status="FAIL" starttime="20230407 18:03:01.911" endtime="20230407 18:03:01.911">Test execution stopped due to a fatal error.</status>
+</test>
+<test id="s1-t8" name="RWO volume with replica on attached node, and Power off the node ${non_volunme_attached_node}" line="96">
+<tag>robot:exit</tag>
+<status status="FAIL" starttime="20230407 18:03:01.912" endtime="20230407 18:03:01.912">Test execution stopped due to a fatal error.</status>
+</test>
+<test id="s1-t9" name="RWO volume with replica on attached node, and Reboot the node ${volunme_attached_node}" line="107">
+<tag>robot:exit</tag>
+<status status="FAIL" starttime="20230407 18:03:01.913" endtime="20230407 18:03:01.913">Test execution stopped due to a fatal error.</status>
+</test>
+<test id="s1-t10" name="RWO volume with replica on attached node, and Reboot the node ${non_volunme_attached_node}" line="119">
+<tag>robot:exit</tag>
+<status status="FAIL" starttime="20230407 18:03:01.913" endtime="20230407 18:03:01.914">Test execution stopped due to a fatal error.</status>
+</test>
+<test id="s1-t11" name="RWO volume with replica on attached node, and Restart Kubelet on the node ${volunme_attached_node}" line="131">
+<tag>robot:exit</tag>
+<status status="FAIL" starttime="20230407 18:03:01.914" endtime="20230407 18:03:01.914">Test execution stopped due to a fatal error.</status>
+</test>
+<test id="s1-t12" name="RWO volume with replica on attached node, and restart Kubelet on the non volume-attached node" line="143">
+<tag>robot:exit</tag>
+<status status="FAIL" starttime="20230407 18:03:01.914" endtime="20230407 18:03:01.915">Test execution stopped due to a fatal error.</status>
+</test>
+<test id="s1-t13" name="RWO volume with no replica on attached node, and Power off the node ${volunme_attached_node}" line="155">
+<tag>robot:exit</tag>
+<status status="FAIL" starttime="20230407 18:03:01.915" endtime="20230407 18:03:01.915">Test execution stopped due to a fatal error.</status>
+</test>
+<test id="s1-t14" name="RWO volume with no replica on attached node, and Power off the node ${non_volunme_attached_node}" line="164">
+<tag>robot:exit</tag>
+<status status="FAIL" starttime="20230407 18:03:01.916" endtime="20230407 18:03:01.916">Test execution stopped due to a fatal error.</status>
+</test>
+<test id="s1-t15" name="RWO volume with no replica on attached node, and Reboot the node ${volunme_attached_node}" line="173">
+<tag>robot:exit</tag>
+<status status="FAIL" starttime="20230407 18:03:01.916" endtime="20230407 18:03:01.917">Test execution stopped due to a fatal error.</status>
+</test>
+<test id="s1-t16" name="RWO volume with no replica on attached node, and Reboot the node ${non_volunme_attached_node}" line="182">
+<tag>robot:exit</tag>
+<status status="FAIL" starttime="20230407 18:03:01.917" endtime="20230407 18:03:01.917">Test execution stopped due to a fatal error.</status>
+</test>
+<test id="s1-t17" name="RWO volume with no replica on attached node, and Restart Kubelet on the node ${volunme_attached_node}" line="191">
+<tag>robot:exit</tag>
+<status status="FAIL" starttime="20230407 18:03:01.918" endtime="20230407 18:03:01.918">Test execution stopped due to a fatal error.</status>
+</test>
+<test id="s1-t18" name="RWO volume with no replica on attached node, and restart Kubelet on the non volume-attached node" line="201">
+<tag>robot:exit</tag>
+<status status="FAIL" starttime="20230407 18:03:01.918" endtime="20230407 18:03:01.918">Test execution stopped due to a fatal error.</status>
+</test>
+<test id="s1-t19" name="RWO volume with no replica on attached node, and Power off the node ${volunme_attached_node}" line="211">
+<tag>robot:exit</tag>
+<status status="FAIL" starttime="20230407 18:03:01.919" endtime="20230407 18:03:01.919">Test execution stopped due to a fatal error.</status>
+</test>
+<test id="s1-t20" name="RWO volume with no replica on attached node, and Power off the node ${non_volunme_attached_node}" line="220">
+<tag>robot:exit</tag>
+<status status="FAIL" starttime="20230407 18:03:01.919" endtime="20230407 18:03:01.920">Test execution stopped due to a fatal error.</status>
+</test>
+<test id="s1-t21" name="RWO volume with no replica on attached node, and Reboot the node ${volunme_attached_node}" line="229">
+<tag>robot:exit</tag>
+<status status="FAIL" starttime="20230407 18:03:01.920" endtime="20230407 18:03:01.920">Test execution stopped due to a fatal error.</status>
+</test>
+<test id="s1-t22" name="RWO volume with no replica on attached node, and Reboot the node ${non_volunme_attached_node}" line="238">
+<tag>robot:exit</tag>
+<status status="FAIL" starttime="20230407 18:03:01.921" endtime="20230407 18:03:01.921">Test execution stopped due to a fatal error.</status>
+</test>
+<test id="s1-t23" name="RWO volume with no replica on attached node, and Restart Kubelet on the node ${volunme_attached_node}" line="247">
+<tag>robot:exit</tag>
+<status status="FAIL" starttime="20230407 18:03:01.921" endtime="20230407 18:03:01.922">Test execution stopped due to a fatal error.</status>
+</test>
+<test id="s1-t24" name="RWO volume with no replica on attached node, and restart Kubelet on the non volume-attached node" line="257">
+<tag>robot:exit</tag>
+<status status="FAIL" starttime="20230407 18:03:01.923" endtime="20230407 18:03:01.923">Test execution stopped due to a fatal error.</status>
+</test>
+<test id="s1-t25" name="RWO volume with replica on attached node, and Power off the node ${volunme_attached_node}" line="268">
+<tag>robot:exit</tag>
+<status status="FAIL" starttime="20230407 18:03:01.924" endtime="20230407 18:03:01.924">Test execution stopped due to a fatal error.</status>
+</test>
+<test id="s1-t26" name="RWO volume with replica on attached node, and Power off the node ${non_volunme_attached_node}" line="280">
+<tag>robot:exit</tag>
+<status status="FAIL" starttime="20230407 18:03:01.925" endtime="20230407 18:03:01.925">Test execution stopped due to a fatal error.</status>
+</test>
+<test id="s1-t27" name="RWO volume with replica on attached node, and Reboot the node ${volunme_attached_node}" line="291">
+<tag>robot:exit</tag>
+<status status="FAIL" starttime="20230407 18:03:01.926" endtime="20230407 18:03:01.926">Test execution stopped due to a fatal error.</status>
+</test>
+<test id="s1-t28" name="RWO volume with replica on attached node, and Reboot the node ${non_volunme_attached_node}" line="303">
+<tag>robot:exit</tag>
+<status status="FAIL" starttime="20230407 18:03:01.927" endtime="20230407 18:03:01.927">Test execution stopped due to a fatal error.</status>
+</test>
+<test id="s1-t29" name="RWO volume with replica on attached node, and Restart Kubelet on the node ${volunme_attached_node}" line="315">
+<tag>robot:exit</tag>
+<status status="FAIL" starttime="20230407 18:03:01.928" endtime="20230407 18:03:01.928">Test execution stopped due to a fatal error.</status>
+</test>
+<test id="s1-t30" name="RWO volume with replica on attached node, and restart Kubelet on the non volume-attached node" line="327">
+<tag>robot:exit</tag>
+<status status="FAIL" starttime="20230407 18:03:01.929" endtime="20230407 18:03:01.929">Test execution stopped due to a fatal error.</status>
+</test>
+<test id="s1-t31" name="RWO volume with replica on attached node, and Power off the node ${volunme_attached_node}" line="339">
+<tag>robot:exit</tag>
+<status status="FAIL" starttime="20230407 18:03:01.930" endtime="20230407 18:03:01.930">Test execution stopped due to a fatal error.</status>
+</test>
+<test id="s1-t32" name="RWO volume with replica on attached node, and Power off the node ${non_volunme_attached_node}" line="351">
+<tag>robot:exit</tag>
+<status status="FAIL" starttime="20230407 18:03:01.931" endtime="20230407 18:03:01.931">Test execution stopped due to a fatal error.</status>
+</test>
+<test id="s1-t33" name="RWO volume with replica on attached node, and Reboot the node ${volunme_attached_node}" line="362">
+<tag>robot:exit</tag>
+<status status="FAIL" starttime="20230407 18:03:01.932" endtime="20230407 18:03:01.932">Test execution stopped due to a fatal error.</status>
+</test>
+<test id="s1-t34" name="RWO volume with replica on attached node, and Reboot the node ${non_volunme_attached_node}" line="374">
+<tag>robot:exit</tag>
+<status status="FAIL" starttime="20230407 18:03:01.933" endtime="20230407 18:03:01.934">Test execution stopped due to a fatal error.</status>
+</test>
+<test id="s1-t35" name="RWO volume with replica on attached node, and Restart Kubelet on the node ${volunme_attached_node}" line="386">
+<tag>robot:exit</tag>
+<status status="FAIL" starttime="20230407 18:03:01.935" endtime="20230407 18:03:01.935">Test execution stopped due to a fatal error.</status>
+</test>
+<test id="s1-t36" name="RWO volume with replica on attached node, and restart Kubelet on the non volume-attached node" line="398">
+<tag>robot:exit</tag>
+<status status="FAIL" starttime="20230407 18:03:01.936" endtime="20230407 18:03:01.937">Test execution stopped due to a fatal error.</status>
+</test>
+<test id="s1-t37" name="RWO volume with no replica on attached node, and Power off the node ${volunme_attached_node}" line="411">
+<tag>robot:exit</tag>
+<status status="FAIL" starttime="20230407 18:03:01.938" endtime="20230407 18:03:01.938">Test execution stopped due to a fatal error.</status>
+</test>
+<test id="s1-t38" name="RWO volume with no replica on attached node, and Power off the node ${non_volunme_attached_node}" line="420">
+<tag>robot:exit</tag>
+<status status="FAIL" starttime="20230407 18:03:01.940" endtime="20230407 18:03:01.941">Test execution stopped due to a fatal error.</status>
+</test>
+<test id="s1-t39" name="RWO volume with no replica on attached node, and Reboot the node ${volunme_attached_node}" line="429">
+<tag>robot:exit</tag>
+<status status="FAIL" starttime="20230407 18:03:01.942" endtime="20230407 18:03:01.943">Test execution stopped due to a fatal error.</status>
+</test>
+<test id="s1-t40" name="RWO volume with no replica on attached node, and Reboot the node ${non_volunme_attached_node}" line="438">
+<tag>robot:exit</tag>
+<status status="FAIL" starttime="20230407 18:03:01.944" endtime="20230407 18:03:01.945">Test execution stopped due to a fatal error.</status>
+</test>
+<test id="s1-t41" name="RWO volume with no replica on attached node, and Restart Kubelet on the node ${volunme_attached_node}" line="447">
+<tag>robot:exit</tag>
+<status status="FAIL" starttime="20230407 18:03:01.948" endtime="20230407 18:03:01.949">Test execution stopped due to a fatal error.</status>
+</test>
+<test id="s1-t42" name="RWO volume with no replica on attached node, and restart Kubelet on the non volume-attached node" line="457">
+<tag>robot:exit</tag>
+<status status="FAIL" starttime="20230407 18:03:01.951" endtime="20230407 18:03:01.951">Test execution stopped due to a fatal error.</status>
+</test>
+<test id="s1-t43" name="RWO volume with no replica on attached node, and Power off the node ${volunme_attached_node}" line="467">
+<tag>robot:exit</tag>
+<status status="FAIL" starttime="20230407 18:03:01.952" endtime="20230407 18:03:01.952">Test execution stopped due to a fatal error.</status>
+</test>
+<test id="s1-t44" name="RWO volume with no replica on attached node, and Power off the node ${non_volunme_attached_node}" line="476">
+<tag>robot:exit</tag>
+<status status="FAIL" starttime="20230407 18:03:01.953" endtime="20230407 18:03:01.953">Test execution stopped due to a fatal error.</status>
+</test>
+<test id="s1-t45" name="RWO volume with no replica on attached node, and Reboot the node ${volunme_attached_node}" line="485">
+<tag>robot:exit</tag>
+<status status="FAIL" starttime="20230407 18:03:01.954" endtime="20230407 18:03:01.954">Test execution stopped due to a fatal error.</status>
+</test>
+<test id="s1-t46" name="RWO volume with no replica on attached node, and Reboot the node ${non_volunme_attached_node}" line="494">
+<tag>robot:exit</tag>
+<status status="FAIL" starttime="20230407 18:03:01.955" endtime="20230407 18:03:01.956">Test execution stopped due to a fatal error.</status>
+</test>
+<test id="s1-t47" name="RWO volume with no replica on attached node, and Restart Kubelet on the node ${volunme_attached_node}" line="503">
+<tag>robot:exit</tag>
+<status status="FAIL" starttime="20230407 18:03:01.956" endtime="20230407 18:03:01.957">Test execution stopped due to a fatal error.</status>
+</test>
+<test id="s1-t48" name="RWO volume with no replica on attached node, and restart Kubelet on the non volume-attached node" line="513">
+<tag>robot:exit</tag>
+<status status="FAIL" starttime="20230407 18:03:01.957" endtime="20230407 18:03:01.958">Test execution stopped due to a fatal error.</status>
+</test>
+<test id="s1-t49" name="RWO volume with replica on attached node, and powering off the volume-attached node exceeds the timeout for evicting the pod" line="524">
+<tag>robot:exit</tag>
+<status status="FAIL" starttime="20230407 18:03:01.958" endtime="20230407 18:03:01.959">Test execution stopped due to a fatal error.</status>
+</test>
+<test id="s1-t50" name="RWO volume with replica on attached node, and powering off the non volume-attached node exceeds the timeout for evicting the pod" line="536">
+<tag>robot:exit</tag>
+<status status="FAIL" starttime="20230407 18:03:01.959" endtime="20230407 18:03:01.959">Test execution stopped due to a fatal error.</status>
+</test>
+<test id="s1-t51" name="RWO volume with replica on attached node, and Reboot the node ${volunme_attached_node} exceeds the timeout for evicting the pod" line="547">
+<tag>robot:exit</tag>
+<status status="FAIL" starttime="20230407 18:03:01.960" endtime="20230407 18:03:01.961">Test execution stopped due to a fatal error.</status>
+</test>
+<test id="s1-t52" name="RWO volume with replica on attached node, and Reboot the node ${non_volunme_attached_node} exceeds the timeout for evicting the pod" line="559">
+<tag>robot:exit</tag>
+<status status="FAIL" starttime="20230407 18:03:01.962" endtime="20230407 18:03:01.962">Test execution stopped due to a fatal error.</status>
+</test>
+<test id="s1-t53" name="RWO volume with replica on attached node, and Restart Kubelet on the node ${volunme_attached_node} exceeds the timeout for evicting the pod" line="571">
+<tag>robot:exit</tag>
+<status status="FAIL" starttime="20230407 18:03:01.963" endtime="20230407 18:03:01.964">Test execution stopped due to a fatal error.</status>
+</test>
+<test id="s1-t54" name="RWO volume with replica on attached node, and restart Kubelet on the non volume-attached node exceeds the timeout for evicting the pod" line="583">
+<tag>robot:exit</tag>
+<status status="FAIL" starttime="20230407 18:03:01.964" endtime="20230407 18:03:01.964">Test execution stopped due to a fatal error.</status>
+</test>
+<test id="s1-t55" name="RWO volume with replica on attached node, and Power off the node ${volunme_attached_node} exceeds the timeout for evicting the pod" line="595">
+<tag>robot:exit</tag>
+<status status="FAIL" starttime="20230407 18:03:01.965" endtime="20230407 18:03:01.965">Test execution stopped due to a fatal error.</status>
+</test>
+<test id="s1-t56" name="RWO volume with replica on attached node, and Power off the node ${non_volunme_attached_node} exceeds the timeout for evicting the pod" line="607">
+<tag>robot:exit</tag>
+<status status="FAIL" starttime="20230407 18:03:01.965" endtime="20230407 18:03:01.966">Test execution stopped due to a fatal error.</status>
+</test>
+<test id="s1-t57" name="RWO volume with replica on attached node, and then Reboot the node ${volunme_attached_node} exceeds the timeout for evicting the pod" line="618">
+<tag>robot:exit</tag>
+<status status="FAIL" starttime="20230407 18:03:01.966" endtime="20230407 18:03:01.967">Test execution stopped due to a fatal error.</status>
+</test>
+<test id="s1-t58" name="RWO volume with replica on attached node, and Reboot the node ${non_volunme_attached_node} exceeds the timeout for evicting the pod" line="630">
+<tag>robot:exit</tag>
+<status status="FAIL" starttime="20230407 18:03:01.967" endtime="20230407 18:03:01.967">Test execution stopped due to a fatal error.</status>
+</test>
+<test id="s1-t59" name="RWO volume with replica on attached node, and Restart Kubelet on the node ${volunme_attached_node} exceeds the timeout for evicting the pod" line="642">
+<tag>robot:exit</tag>
+<status status="FAIL" starttime="20230407 18:03:01.968" endtime="20230407 18:03:01.969">Test execution stopped due to a fatal error.</status>
+</test>
+<test id="s1-t60" name="RWO volume with replica on attached node, and restart Kubelet on the non volume-attached node exceeds the timeout for evicting the pod" line="654">
+<tag>robot:exit</tag>
+<status status="FAIL" starttime="20230407 18:03:01.970" endtime="20230407 18:03:01.970">Test execution stopped due to a fatal error.</status>
+</test>
+<test id="s1-t61" name="RWO volume with no replica on attached node, and Power off the node ${volunme_attached_node} exceeds the timeout for evicting the pod" line="667">
+<tag>robot:exit</tag>
+<status status="FAIL" starttime="20230407 18:03:01.971" endtime="20230407 18:03:01.972">Test execution stopped due to a fatal error.</status>
+</test>
+<test id="s1-t62" name="RWO volume with no replica on attached node, and Power off the node ${non_volunme_attached_node} exceeds the timeout for evicting the pod" line="676">
+<tag>robot:exit</tag>
+<status status="FAIL" starttime="20230407 18:03:01.972" endtime="20230407 18:03:01.973">Test execution stopped due to a fatal error.</status>
+</test>
+<test id="s1-t63" name="RWO volume with no replica on attached node, and Reboot the node ${volunme_attached_node} exceeds the timeout for evicting the pod" line="685">
+<tag>robot:exit</tag>
+<status status="FAIL" starttime="20230407 18:03:01.973" endtime="20230407 18:03:01.974">Test execution stopped due to a fatal error.</status>
+</test>
+<test id="s1-t64" name="RWO volume with no replica on attached node, and Reboot the node ${non_volunme_attached_node} exceeds the timeout for evicting the pod" line="694">
+<tag>robot:exit</tag>
+<status status="FAIL" starttime="20230407 18:03:01.975" endtime="20230407 18:03:01.975">Test execution stopped due to a fatal error.</status>
+</test>
+<test id="s1-t65" name="RWO volume with no replica on attached node, and Restart Kubelet on the node ${volunme_attached_node} exceeds the timeout for evicting the pod" line="703">
+<tag>robot:exit</tag>
+<status status="FAIL" starttime="20230407 18:03:01.976" endtime="20230407 18:03:01.976">Test execution stopped due to a fatal error.</status>
+</test>
+<test id="s1-t66" name="RWO volume with no replica on attached node, and restart Kubelet on the non volume-attached node exceeds the timeout for evicting the pod" line="713">
+<tag>robot:exit</tag>
+<status status="FAIL" starttime="20230407 18:03:01.977" endtime="20230407 18:03:01.977">Test execution stopped due to a fatal error.</status>
+</test>
+<test id="s1-t67" name="RWO volume with no replica on attached node, and Power off the node ${volunme_attached_node} exceeds the timeout for evicting the pod" line="722">
+<tag>robot:exit</tag>
+<status status="FAIL" starttime="20230407 18:03:01.978" endtime="20230407 18:03:01.978">Test execution stopped due to a fatal error.</status>
+</test>
+<test id="s1-t68" name="RWO volume with no replica on attached node, and Power off the node ${non_volunme_attached_node} exceeds the timeout for evicting the pod" line="731">
+<tag>robot:exit</tag>
+<status status="FAIL" starttime="20230407 18:03:01.979" endtime="20230407 18:03:01.980">Test execution stopped due to a fatal error.</status>
+</test>
+<test id="s1-t69" name="RWO volume with no replica on attached node, and Reboot the node ${volunme_attached_node} exceeds the timeout for evicting the pod" line="740">
+<tag>robot:exit</tag>
+<status status="FAIL" starttime="20230407 18:03:01.980" endtime="20230407 18:03:01.981">Test execution stopped due to a fatal error.</status>
+</test>
+<test id="s1-t70" name="RWO volume with no replica on attached node, and Reboot the node ${non_volunme_attached_node} exceeds the timeout for evicting the pod" line="749">
+<tag>robot:exit</tag>
+<status status="FAIL" starttime="20230407 18:03:01.982" endtime="20230407 18:03:01.982">Test execution stopped due to a fatal error.</status>
+</test>
+<test id="s1-t71" name="RWO volume with no replica on attached node, and Restart Kubelet on the node ${volunme_attached_node} exceeds the timeout for evicting the pod" line="758">
+<tag>robot:exit</tag>
+<status status="FAIL" starttime="20230407 18:03:01.983" endtime="20230407 18:03:01.984">Test execution stopped due to a fatal error.</status>
+</test>
+<test id="s1-t72" name="RWO volume with no replica on attached node, and restart Kubelet on the non volume-attached node exceeds the timeout for evicting the pod" line="768">
+<tag>robot:exit</tag>
+<status status="FAIL" starttime="20230407 18:03:01.984" endtime="20230407 18:03:01.985">Test execution stopped due to a fatal error.</status>
+</test>
+<doc>Test the resillence if cluster node happend exception
+
+Keywords are imported from the resource file</doc>
+<status status="FAIL" starttime="20230407 18:02:30.896" endtime="20230407 18:03:01.985"/>
+</suite>
+<statistics>
+<total>
+<stat pass="0" fail="72" skip="0">All Tests</stat>
+</total>
+<tag>
+<stat pass="0" fail="1" skip="0" info="combined" combined="NOT robot:exit">NOT robot:exit</stat>
+</tag>
+<suite>
+<stat pass="0" fail="72" skip="0" id="s1" name="TestCases">TestCases</stat>
+</suite>
+</statistics>
+<errors>
+<msg timestamp="20230407 18:03:01.912" level="WARN">Multiple tests with name 'RWO volume with replica on attached node, and Power off the node ${non_volunme_attached_node}' executed in suite 'TestCases'.</msg>
+<msg timestamp="20230407 18:03:01.912" level="WARN">Multiple tests with name 'RWO volume with replica on attached node, and Reboot the node ${volunme_attached_node}' executed in suite 'TestCases'.</msg>
+<msg timestamp="20230407 18:03:01.913" level="WARN">Multiple tests with name 'RWO volume with replica on attached node, and Reboot the node ${non_volunme_attached_node}' executed in suite 'TestCases'.</msg>
+<msg timestamp="20230407 18:03:01.914" level="WARN">Multiple tests with name 'RWO volume with replica on attached node, and Restart Kubelet on the node ${volunme_attached_node}' executed in suite 'TestCases'.</msg>
+<msg timestamp="20230407 18:03:01.914" level="WARN">Multiple tests with name 'RWO volume with replica on attached node, and restart Kubelet on the non volume-attached node' executed in suite 'TestCases'.</msg>
+<msg timestamp="20230407 18:03:01.918" level="WARN">Multiple tests with name 'RWO volume with no replica on attached node, and Power off the node ${volunme_attached_node}' executed in suite 'TestCases'.</msg>
+<msg timestamp="20230407 18:03:01.919" level="WARN">Multiple tests with name 'RWO volume with no replica on attached node, and Power off the node ${non_volunme_attached_node}' executed in suite 'TestCases'.</msg>
+<msg timestamp="20230407 18:03:01.920" level="WARN">Multiple tests with name 'RWO volume with no replica on attached node, and Reboot the node ${volunme_attached_node}' executed in suite 'TestCases'.</msg>
+<msg timestamp="20230407 18:03:01.920" level="WARN">Multiple tests with name 'RWO volume with no replica on attached node, and Reboot the node ${non_volunme_attached_node}' executed in suite 'TestCases'.</msg>
+<msg timestamp="20230407 18:03:01.921" level="WARN">Multiple tests with name 'RWO volume with no replica on attached node, and Restart Kubelet on the node ${volunme_attached_node}' executed in suite 'TestCases'.</msg>
+<msg timestamp="20230407 18:03:01.922" level="WARN">Multiple tests with name 'RWO volume with no replica on attached node, and restart Kubelet on the non volume-attached node' executed in suite 'TestCases'.</msg>
+<msg timestamp="20230407 18:03:01.924" level="WARN">Multiple tests with name 'RWO volume with replica on attached node, and Power off the node ${volunme_attached_node}' executed in suite 'TestCases'.</msg>
+<msg timestamp="20230407 18:03:01.925" level="WARN">Multiple tests with name 'RWO volume with replica on attached node, and Power off the node ${non_volunme_attached_node}' executed in suite 'TestCases'.</msg>
+<msg timestamp="20230407 18:03:01.925" level="WARN">Multiple tests with name 'RWO volume with replica on attached node, and Reboot the node ${volunme_attached_node}' executed in suite 'TestCases'.</msg>
+<msg timestamp="20230407 18:03:01.927" level="WARN">Multiple tests with name 'RWO volume with replica on attached node, and Reboot the node ${non_volunme_attached_node}' executed in suite 'TestCases'.</msg>
+<msg timestamp="20230407 18:03:01.928" level="WARN">Multiple tests with name 'RWO volume with replica on attached node, and Restart Kubelet on the node ${volunme_attached_node}' executed in suite 'TestCases'.</msg>
+<msg timestamp="20230407 18:03:01.929" level="WARN">Multiple tests with name 'RWO volume with replica on attached node, and restart Kubelet on the non volume-attached node' executed in suite 'TestCases'.</msg>
+<msg timestamp="20230407 18:03:01.929" level="WARN">Multiple tests with name 'RWO volume with replica on attached node, and Power off the node ${volunme_attached_node}' executed in suite 'TestCases'.</msg>
+<msg timestamp="20230407 18:03:01.931" level="WARN">Multiple tests with name 'RWO volume with replica on attached node, and Power off the node ${non_volunme_attached_node}' executed in suite 'TestCases'.</msg>
+<msg timestamp="20230407 18:03:01.931" level="WARN">Multiple tests with name 'RWO volume with replica on attached node, and Reboot the node ${volunme_attached_node}' executed in suite 'TestCases'.</msg>
+<msg timestamp="20230407 18:03:01.933" level="WARN">Multiple tests with name 'RWO volume with replica on attached node, and Reboot the node ${non_volunme_attached_node}' executed in suite 'TestCases'.</msg>
+<msg timestamp="20230407 18:03:01.934" level="WARN">Multiple tests with name 'RWO volume with replica on attached node, and Restart Kubelet on the node ${volunme_attached_node}' executed in suite 'TestCases'.</msg>
+<msg timestamp="20230407 18:03:01.936" level="WARN">Multiple tests with name 'RWO volume with replica on attached node, and restart Kubelet on the non volume-attached node' executed in suite 'TestCases'.</msg>
+<msg timestamp="20230407 18:03:01.937" level="WARN">Multiple tests with name 'RWO volume with no replica on attached node, and Power off the node ${volunme_attached_node}' executed in suite 'TestCases'.</msg>
+<msg timestamp="20230407 18:03:01.940" level="WARN">Multiple tests with name 'RWO volume with no replica on attached node, and Power off the node ${non_volunme_attached_node}' executed in suite 'TestCases'.</msg>
+<msg timestamp="20230407 18:03:01.942" level="WARN">Multiple tests with name 'RWO volume with no replica on attached node, and Reboot the node ${volunme_attached_node}' executed in suite 'TestCases'.</msg>
+<msg timestamp="20230407 18:03:01.943" level="WARN">Multiple tests with name 'RWO volume with no replica on attached node, and Reboot the node ${non_volunme_attached_node}' executed in suite 'TestCases'.</msg>
+<msg timestamp="20230407 18:03:01.947" level="WARN">Multiple tests with name 'RWO volume with no replica on attached node, and Restart Kubelet on the node ${volunme_attached_node}' executed in suite 'TestCases'.</msg>
+<msg timestamp="20230407 18:03:01.950" level="WARN">Multiple tests with name 'RWO volume with no replica on attached node, and restart Kubelet on the non volume-attached node' executed in suite 'TestCases'.</msg>
+<msg timestamp="20230407 18:03:01.951" level="WARN">Multiple tests with name 'RWO volume with no replica on attached node, and Power off the node ${volunme_attached_node}' executed in suite 'TestCases'.</msg>
+<msg timestamp="20230407 18:03:01.952" level="WARN">Multiple tests with name 'RWO volume with no replica on attached node, and Power off the node ${non_volunme_attached_node}' executed in suite 'TestCases'.</msg>
+<msg timestamp="20230407 18:03:01.953" level="WARN">Multiple tests with name 'RWO volume with no replica on attached node, and Reboot the node ${volunme_attached_node}' executed in suite 'TestCases'.</msg>
+<msg timestamp="20230407 18:03:01.955" level="WARN">Multiple tests with name 'RWO volume with no replica on attached node, and Reboot the node ${non_volunme_attached_node}' executed in suite 'TestCases'.</msg>
+<msg timestamp="20230407 18:03:01.956" level="WARN">Multiple tests with name 'RWO volume with no replica on attached node, and Restart Kubelet on the node ${volunme_attached_node}' executed in suite 'TestCases'.</msg>
+<msg timestamp="20230407 18:03:01.957" level="WARN">Multiple tests with name 'RWO volume with no replica on attached node, and restart Kubelet on the non volume-attached node' executed in suite 'TestCases'.</msg>
+<msg timestamp="20230407 18:03:01.967" level="WARN">Multiple tests with name 'RWO volume with replica on attached node, and Reboot the node ${non_volunme_attached_node} exceeds the timeout for evicting the pod' executed in suite 'TestCases'.</msg>
+<msg timestamp="20230407 18:03:01.968" level="WARN">Multiple tests with name 'RWO volume with replica on attached node, and Restart Kubelet on the node ${volunme_attached_node} exceeds the timeout for evicting the pod' executed in suite 'TestCases'.</msg>
+<msg timestamp="20230407 18:03:01.970" level="WARN">Multiple tests with name 'RWO volume with replica on attached node, and restart Kubelet on the non volume-attached node exceeds the timeout for evicting the pod' executed in suite 'TestCases'.</msg>
+<msg timestamp="20230407 18:03:01.977" level="WARN">Multiple tests with name 'RWO volume with no replica on attached node, and Power off the node ${volunme_attached_node} exceeds the timeout for evicting the pod' executed in suite 'TestCases'.</msg>
+<msg timestamp="20230407 18:03:01.979" level="WARN">Multiple tests with name 'RWO volume with no replica on attached node, and Power off the node ${non_volunme_attached_node} exceeds the timeout for evicting the pod' executed in suite 'TestCases'.</msg>
+<msg timestamp="20230407 18:03:01.980" level="WARN">Multiple tests with name 'RWO volume with no replica on attached node, and Reboot the node ${volunme_attached_node} exceeds the timeout for evicting the pod' executed in suite 'TestCases'.</msg>
+<msg timestamp="20230407 18:03:01.981" level="WARN">Multiple tests with name 'RWO volume with no replica on attached node, and Reboot the node ${non_volunme_attached_node} exceeds the timeout for evicting the pod' executed in suite 'TestCases'.</msg>
+<msg timestamp="20230407 18:03:01.983" level="WARN">Multiple tests with name 'RWO volume with no replica on attached node, and Restart Kubelet on the node ${volunme_attached_node} exceeds the timeout for evicting the pod' executed in suite 'TestCases'.</msg>
+<msg timestamp="20230407 18:03:01.984" level="WARN">Multiple tests with name 'RWO volume with no replica on attached node, and restart Kubelet on the non volume-attached node exceeds the timeout for evicting the pod' executed in suite 'TestCases'.</msg>
+</errors>
+</robot>
