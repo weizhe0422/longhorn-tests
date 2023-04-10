@@ -3,9 +3,12 @@ from kubernetes.stream import stream
 from utility import Utility
 
 import time
+import boto3
 
 DEFAULT_POD_TIMEOUT = 180
 DEFAULT_POD_INTERVAL = 1
+
+EC2_RESOURCE = boto3.resource('ec2')
 
 class NodeExec:
 
@@ -123,14 +126,35 @@ class NodeExec:
             self.node_exec_pod[node_name] = pod
             return pod
 
+    def get_node_instance(self, node_name):
+        print(f"Get node: {node_name}'s instance")
+        return EC2_RESOURCE.instances.filter(
+                        Filters=[
+                            {
+                                'Name': 'tag:Name',
+                                'Values': [
+                                    node_name
+                                ]
+                            }
+                        ]
+                    )
+        
     def power_off_node_instance(self, node_name):
-        Utility().ssh(node_name, 'shutdown -h now')
+        # Utility().ssh(node_name, 'shutdown -h now')
+        node_instances = self.get_node_instance(node_name)
+        for instance in node_instances:
+            instance.stop()
+            print(f'Stopping EC2 instance:', {node_name})
+            instance.wait_until_stopped()
+            print(f'EC2 instance "{node_name}" has been stopped')
+
 
     def get_node_state(self, node_name):
         client = Utility().get_k8s_core_api_client()
         node_status = client.read_node_status(node_name)
         for node_cond in node_status.status.conditions:
+            print(f"node_cond.type:{node_cond.type}, node_cond.status:{node_cond.status}")
             if node_cond.type == "Ready" and \
                 node_cond.status == "True":
                  return node_cond.type
-            return "NotReady"
+        return "NotReady"

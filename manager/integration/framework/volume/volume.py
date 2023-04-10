@@ -25,6 +25,10 @@ class Volume(AbstractVolume):
 
     def wait_for_volume_state(self, volume_name, desired_state):
         return self.volume.wait_for_volume_state(volume_name, desired_state)
+    
+    def get_volume_state(self, volume_name):
+        volume = self.get(volume_name)
+        return self.volume.get_volume_state(volume_name)
 
     def get_endpoint(self, volume_name):
         return self.volume.get_endpoint(volume_name)

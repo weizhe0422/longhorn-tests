@@ -90,26 +90,24 @@ class steps:
         print(f"get volume: {volume_name}'s state")
         if volume_name == "":
             return print(f"failed: volume_name: {volume_name} is empty")        
-        return self.volume.get(volume_name)
+        return self.volume.get_volume_state(volume_name)
     
     def get_engine_state(self, volume_name, node_name):
         print(f"get volume: {volume_name}'s engine state")
         if volume_name == "" or node_name == "":
             return print(f"failed: volume_name: {volume_name} or node_name: {node_name} is empty")
-        return self.volume.get_engine(volume_name, node_name)
+        engine = self.volume.get_engine(volume_name, node_name)
+        return engine['items'][0]['status']['currentState']
            
     def get_replica_state(self, volume_name, node_name):
         print(f"get volume: {volume_name} on {node_name}'s replica state")
         if volume_name == "" or node_name == "":
             return print(f"failed: volume_name: {volume_name} or node_name: {node_name} is empty")
-        return self.volume.get_replica(volume_name, node_name)
+        replica = self.volume.get_replica(volume_name, node_name)
+        return replica['items'][0]['status']['currentState']
         
-    def check_workload_state(self, work_type, current_state, expect_state):
-        if len(current_state) <= 0 or expect_state == "":
-            return False
-        
-        for idx in len(current_state):
-            if work_type == "replica" or work_type == "engine":
-               if current_state[idx].status.currentState != expect_state:
-                   return False
-        return True
+    def check_workload_state(self, current_state, expect_state):        
+        print(f"current state: {current_state}, expect state: {expect_state}")
+        if current_state == expect_state:
+            return True
+        return False

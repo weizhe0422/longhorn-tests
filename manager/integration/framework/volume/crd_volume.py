@@ -75,6 +75,10 @@ class CRDVolume(AbstractVolume):
             time.sleep(retry_interval)
         assert self.get(volume_name)["status"]["state"] == desired_state
 
+    def get_volume_state(self, volume_name):
+        print(f"Get volume{volume_name}'s state")
+        return self.get(volume_name)["status"]["robustness"]
+
     def get_endpoint(self, volume_name):
         warnings.warn("no endpoint in volume cr, get it from rest api")
         return RestVolume(self.node_exec).get_endpoint(volume_name)
@@ -118,7 +122,7 @@ class CRDVolume(AbstractVolume):
             label_selector=f"longhornvolume={volume_name}\
                              ,longhornnode={node_name}"
         )
-        
+    
     def wait_for_replica_rebuilding_start(self, volume_name, node_name):
         warnings.warn("no rebuild status in volume cr, get it from rest api")
         RestVolume(self.node_exec).wait_for_replica_rebuilding_start(volume_name, node_name)

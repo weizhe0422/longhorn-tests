@@ -48,11 +48,11 @@ Volume state should be ${volume_expect_state}
     
 Engine state should be ${engine_expect_state}
     ${engine_current_state} =   get_engine_state   ${volume_name}   ${volunme_attached_node}
-    check_workload_state    engine   ${engine_current_state}    ${engine_expect_state}
+    check_workload_state    ${engine_current_state}    ${engine_expect_state}
 
 Replica on the node ${node_name} state should be ${replica_expect_state}
     ${replica_current_state} =   get_replica_state   ${volume_name}   ${node_name}
-    check_workload_state    replica   ${replica_current_state}    ${replica_expect_state}
+    check_workload_state    ${replica_current_state}    ${replica_expect_state}
 
 Check data is intact
     check_data    ${volume_name}    ${volume_data_checksum}

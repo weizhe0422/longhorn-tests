@@ -14,13 +14,12 @@ RWO volume with replica on attached node and power off it
 # Recover: After restart the node, volume should be detached and replica is failed. Need manual to do reattached.
     Given Create ${volume_size_gb} GB RWO volume with 3 replicas
     And Attach volume to the node
-    When Write data into mount point
-    And Power off the node ${volunme_attached_node}
-    Then Node ${volunme_attached_node} state should be 'Down'
-    And Volume state should be 'Unknown'
-    And Engine state should be 'unknown'
-    And Replica on the node ${volunme_attached_node} state should be 'unknown'
-    And Check data is intact
+    And Write data into mount point
+    When Power off the node ${volunme_attached_node}
+    Then Node ${volunme_attached_node} state should be NotReady
+    And Volume state should be unknown
+    And Engine state should be unknown
+    And Replica on the node ${volunme_attached_node} state should be unknown
 
 RWO volume with replica on attached node, and Power off the node ${non_volunme_attached_node}
 # Recover: After restart the node, delete the stopped replica, and re-update the replica count to do rebuilding
@@ -773,5 +772,4 @@ RWO volume with no replica on attached node, and restart Kubelet on the non volu
     When Write data into mount point
     And Restart Kubelet on the node ${non_volunme_attached_node} exceeds the timeout for evicting the pod
     Then 
-    And Check data is intact
-    
+    And Check data is intact    

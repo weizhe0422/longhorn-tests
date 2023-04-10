@@ -21,9 +21,11 @@ class Utility:
         # it makes us always need to build new docker image to test our code
         config.load_kube_config()  # for local environment
         # config.load_incluster_config()  # for in-cluster environment
+    
+    @classmethod
     def get_k8s_core_api_client(cls):
         print('get_k8s_api_client')
-        init_k8s_api_client(cls)
+        cls().init_k8s_api_client()
         return client.CoreV1Api()
         
     def get_longhorn_client(cls):
@@ -36,7 +38,8 @@ class Utility:
         print(longhorn_client)
         return longhorn_client
 
-    def ssh(cls, host, cmd):
+    @staticmethod
+    def ssh(host, cmd):
         ssh = paramiko.SSHClient()
         ssh.set_missing_host_key_policy(paramiko.AutoAddPolicy())
         ssh_user = os.environ['KUBE_SSH_USER'] if os.environ['KUBE_SSH_USER'] != "" else os.environ['USER']
