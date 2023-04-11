@@ -17,6 +17,9 @@ class Volume(AbstractVolume):
     def get(self, volume_name):
         return self.volume.get(volume_name)
 
+    def delete_volume(self, volume_name=""):
+        return self.volume.delete(volume_name)
+    
     def create(self, volume_name, size, replica_count, volume_type):
         return self.volume.create(volume_name, size, replica_count, volume_type)
 
@@ -36,7 +39,7 @@ class Volume(AbstractVolume):
     def write_random_data(self, volume_name, size):
         return self.volume.write_random_data(volume_name, size)
 
-    def delete_replica(self, volume_name, node_name):
+    def delete_replica(self, volume_name="", node_name=""):
         return self.volume.delete_replica(volume_name, node_name)
     
     def get_replica(self, volume_name, node_name):
@@ -44,7 +47,10 @@ class Volume(AbstractVolume):
  
     def get_engine(self, volume_name, node_name):
         return self.volume.get_engine(volume_name, node_name)
-       
+
+    def delete_engine(self, volume_name="", node_name=""):
+        return self.volume.delete_engine(volume_name, node_name)
+         
     def wait_for_replica_rebuilding_start(self, volume_name, node_name):
         return self.volume.wait_for_replica_rebuilding_start(
             volume_name,
@@ -59,4 +65,14 @@ class Volume(AbstractVolume):
 
     def check_data(self, volume_name, checksum):
         return self.volume.check_data(volume_name, checksum)
+    
+    def clean_up(self):
+        print("Clean volume related resources")
+        # Replicas
+        self.delete_replica()
+        # Engines
+        self.delete_engine()
+        # Volumes
+        self.delete_volume()
+
     

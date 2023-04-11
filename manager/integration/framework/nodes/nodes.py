@@ -1,5 +1,5 @@
 from kubernetes import client
-
+from utility import Utility 
 class Nodes:
 
     _instance = None
@@ -27,3 +27,13 @@ class Nodes:
     def get_by_index(self, index):
         nodes = self.get()
         return nodes[index]
+    
+    def get_node_state(self, node_name):
+        client = Utility().get_k8s_core_api_client()
+        node_status = client.read_node_status(node_name)
+        for node_cond in node_status.status.conditions:
+            print(f"node_cond.type:{node_cond.type}, node_cond.status:{node_cond.status}")
+            if node_cond.type == "Ready" and \
+                node_cond.status == "True":
+                 return node_cond.type
+        return "NotReady"

@@ -13,14 +13,16 @@ Create ${size} GB ${volume_type} volume with ${replica_count} replicas
 
 Attach volume to the node
     ${volunme_attached_node} =    attach_volume   ${volume_name}
+    ${non_volunme_attached_node} =    get_non_volunme_attached_node   ${volunme_attached_node}
     Set Test Variable    ${volunme_attached_node}
+    Set Test Variable    ${non_volunme_attached_node}
 
 Write data into mount point
     ${volume_data_checksum} =    write_volume_random_data   ${volume_name}    2048
     Set Test Variable    ${volume_data_checksum}
 
 Power off the node ${node_name}
-    power_off_node_instance   ${node_name}
+    power_off_node   ${node_name}
 
 Restart Kubelet on the node ${node_name}
     restart_node_instance   ${node_name}

@@ -20,7 +20,7 @@ class CRDVolume(AbstractVolume):
         self.obj_api = client.CustomObjectsApi()
         self.node_exec = node_exec
 
-    def get(self, volume_name):
+    def get(self, volume_name=""):
         volume = self.obj_api.get_namespaced_custom_object(
             group="longhorn.io",
             version="v1beta2",
@@ -29,6 +29,19 @@ class CRDVolume(AbstractVolume):
             name=volume_name
         )
         return volume
+
+    def delete(self, volume_name=""):
+        volume_list = self.get(volume_name)
+        print(f"volume_list:{volume_list}")
+        for volume in volume_list['items']:
+            print(f"delete volume {volume['metadata']['name']}")
+            self.obj_api.delete_namespaced_custom_object(
+                group="longhorn.io",
+                version="v1beta2",
+                namespace="longhorn-system",
+                plural="volumes",
+                name=volume['metadata']['name']
+            )
 
     def create(self, volume_name, size, replica_count, volume_type):
         body = {
@@ -92,36 +105,63 @@ class CRDVolume(AbstractVolume):
               md5sum {endpoint} | awk \'{{print $1}}\'")
         return checksum
 
-    def delete_replica(self, volume_name, node_name):
-        replica_list = self.get_replica(volume_name, node_name)
-        print(f"delete replica {replica_list['items'][0]['metadata']['name']}")
-        self.obj_api.delete_namespaced_custom_object(
-            group="longhorn.io",
-            version="v1beta2",
-            namespace="longhorn-system",
-            plural="replicas",
-            name=replica_list['items'][0]['metadata']['name']
-        )
-
     def get_replica(self, volume_name, node_name):
+        label_selector=[]
+        if volume_name!="":
+            label_selector.append(f"longhornvolume={volume_name}")
+        if node_name!="":
+            label_selector.append(f"longhornnode={node_name}")
+
+        print(f"label_selector={label_selector}")
         return self.obj_api.list_namespaced_custom_object(
             group="longhorn.io",
             version="v1beta2",
             namespace="longhorn-system",
             plural="replicas",
-            label_selector=f"longhornvolume={volume_name}\
-                             ,longhornnode={node_name}"
+            label_selector=",".join(label_selector)
         )
+
+    def delete_replica(self, volume_name, node_name):
+        replica_list = self.get_replica(volume_name, node_name)
+        print(f"replica_list:{replica_list}")
+        for replica in replica_list['items']:
+            print(f"delete replica {replica['metadata']['name']}")
+            self.obj_api.delete_namespaced_custom_object(
+                group="longhorn.io",
+                version="v1beta2",
+                namespace="longhorn-system",
+                plural="replicas",
+                name=replica['metadata']['name']
+            )
         
     def get_engine(self, volume_name, node_name):
+        label_selector=[]
+        if volume_name!="":
+            label_selector.append(f"longhornvolume={volume_name}")
+        if node_name!="":
+            label_selector.append(f"longhornnode={node_name}")
+
+        print(f"label_selector={label_selector}")
         return self.obj_api.list_namespaced_custom_object(
             group="longhorn.io",
             version="v1beta2",
             namespace="longhorn-system",
             plural="engines",
-            label_selector=f"longhornvolume={volume_name}\
-                             ,longhornnode={node_name}"
+            label_selector=",".join(label_selector)
         )
+    
+    def delete_engine(self, volume_name, node_name):
+        engine_list = self.get_engine(volume_name, node_name)
+        print(f"engine_list:{engine_list}")
+        for engine in engine_list['items']:
+            print(f"delete engine {engine['metadata']['name']}")
+            self.obj_api.delete_namespaced_custom_object(
+                group="longhorn.io",
+                version="v1beta2",
+                namespace="longhorn-system",
+                plural="engines",
+                name=engine['metadata']['name']
+            )
     
     def wait_for_replica_rebuilding_start(self, volume_name, node_name):
         warnings.warn("no rebuild status in volume cr, get it from rest api")

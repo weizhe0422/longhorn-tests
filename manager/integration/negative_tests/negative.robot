@@ -3,7 +3,7 @@ Documentation    Negative Test Cases
 
 Library    ../framework/steps.py
 
-Test setup    set_test_name    ${TEST NAME}
+Test setup    set_test_name    ${TEST NAME}    aws
 
 Test Teardown    cleanup_resources
 
