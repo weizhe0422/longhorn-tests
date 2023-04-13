@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<robot generator="Robot 5.0 (Python 3.8.6 on darwin)" generated="20230413 16:26:18.182" rpa="false" schemaversion="3">
+<suite id="s1" name="TestCases" source="/Users/weizhechang/Workspace/Go/src/github.com/weizhe0422/longhorn-tests/manager/integration/negative_tests/Node_NotReady/TestCases.robot">
+<test id="s1-t1" name="Scenario 2" line="26">
+<kw name="Set Test Environment" library="steps" type="SETUP">
+<arg>${TEST NAME}</arg>
+<msg timestamp="20230413 16:26:21.287" level="FAIL">MissingSectionHeaderError: File contains no section headers.
+file: '&lt;???&gt;', line: 1
+'s'</msg>
+<status status="FAIL" starttime="20230413 16:26:21.240" endtime="20230413 16:26:21.306"/>
+</kw>
+<kw name="Cleanup Resources" library="steps" type="TEARDOWN">
+<msg timestamp="20230413 16:26:21.311" level="INFO">cleanup_resources</msg>
+<msg timestamp="20230413 16:26:21.312" level="FAIL">AttributeError: 'steps' object has no attribute 'node_exec'</msg>
+<status status="FAIL" starttime="20230413 16:26:21.311" endtime="20230413 16:26:21.313">AttributeError: 'steps' object has no attribute 'node_exec'</status>
+</kw>
+<doc>RWO volume with replica on attached node, and power off the non volume attached node</doc>
+<tag>RWO PowerOffNode</tag>
+<status status="FAIL" starttime="20230413 16:26:21.237" endtime="20230413 16:26:21.318">Setup failed:
+MissingSectionHeaderError: File contains no section headers.
+file: '&lt;???&gt;', line: 1
+'s'
+
+Also teardown failed:
+AttributeError: 'steps' object has no attribute 'node_exec'</status>
+</test>
+<doc>Test the resillence if cluster node happend exception
+
+Keywords are imported from the resource file</doc>
+<status status="FAIL" starttime="20230413 16:26:18.195" endtime="20230413 16:26:21.325"/>
+</suite>
+<statistics>
+<total>
+<stat pass="0" fail="1" skip="0">All Tests</stat>
+</total>
+<tag>
+<stat pass="0" fail="1" skip="0">RWO PowerOffNode</stat>
+</tag>
+<suite>
+<stat pass="0" fail="1" skip="0" id="s1" name="TestCases">TestCases</stat>
+</suite>
+</statistics>
+<errors>
+</errors>
+</robot>
