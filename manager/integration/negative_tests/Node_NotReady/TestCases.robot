@@ -3,7 +3,7 @@ Documentation     Test the resillence if cluster node happend exception
 ...
 ...               Keywords are imported from the resource file
 Resource          Keywords.resource
-Test setup    set_test_name    ${TEST NAME}    aws
+Test setup    set_test_environment    ${TEST NAME}
 Test Teardown    cleanup_resources
 
 *** Variable ***

@@ -5,6 +5,7 @@ import string
 import random
 import os
 import paramiko
+import time
 
 class Utility:
 
@@ -39,13 +40,43 @@ class Utility:
         return longhorn_client
 
     @staticmethod
-    def ssh(host, cmd):
+    def ssh_and_exec_cmd(cls, host, cmd):
         ssh = paramiko.SSHClient()
         ssh.set_missing_host_key_policy(paramiko.AutoAddPolicy())
-        ssh_user = os.environ['KUBE_SSH_USER'] if os.environ['KUBE_SSH_USER'] != "" else os.environ['USER']
-        ssh.connect(host, username=ssh_user)
+
+        cls().ssh_connect_with_retry(ssh, host, 0)
         stdin, stdout, stderr = ssh.exec_command(cmd)
-        if stdout.channel.recv_exit_status() != 0:
-            return stderr.read().decode()
-        return stdout.read().decode()
+        print('fail to execute command:', stderr.read())
+    
+    def ssh_connect_with_retry(cls, ssh, ip_address, retries):
+        if retries > 3:
+            return False
+        
+        try:
+            retries += 1
+            print('SSH into the instance: {}'.format(ip_address))
+            config = paramiko.SSHConfig()
+            try:
+                config.parse(open(os.path.expanduser(SSH_CONFIG_PATH)))
+            except IOError:
+                # No file found, so empty configuration
+                pass
+            # machine_config is a dict with only relevant properties set
+            host_conf = config.lookup(ip_address)
+            cfg = {}
+            if host_conf:
+                if 'user' in host_conf:
+                    cfg['username'] = host_conf['user']
+                if 'identityfile' in host_conf:
+                    cfg['key_filename'] = host_conf['identityfile']
+                if 'hostname' in host_conf:
+                    cfg['hostname'] = host_conf['hostname']
+
+            ssh.connect(**cfg)
+            return True
+        except Exception as e:
+            print(e)
+            time.sleep(RETRY_INTERVAL)
+            print('Retrying SSH connection to {}'.format(ip_address))
+            cls.ssh_connect_with_retry(ssh, ip_address, retries)
     

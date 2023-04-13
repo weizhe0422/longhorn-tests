@@ -1,5 +1,5 @@
 from volume import Volume
-from utility import Utility
+from utility import Utility, globals
 from nodes import Nodes
 from strategy import CloudProvider
 from node_exec import NodeExec
@@ -12,10 +12,12 @@ class steps:
         Utility().init_k8s_api_client()
 
 
-    def set_test_name(self, test_name, cloud_provider):
-        print(f"cloud_provider:{cloud_provider}")
+    def set_test_environment(self, test_name):
+        globals.initialize_variables()
+
+        print(f"cloud_provider:{globals.CLOUD_PROVIDER}")
         self.namespace = test_name.lower().replace(' ', '-')
-        self.node_exec = NodeExec(self.namespace, cloud_provider)
+        self.node_exec = NodeExec(self.namespace, globals.CLOUD_PROVIDER)
         self.volume = Volume(self.node_exec)
 
 

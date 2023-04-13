@@ -1,6 +1,5 @@
 from kubernetes import client
 from kubernetes.stream import stream
-from utility import Utility
 
 from strategy import CloudProvider
 from node_exec.aws import EC2
@@ -139,3 +138,6 @@ class NodeExec:
     
     def power_on_node(self, node_name):
         self._instance.power_on_node_instance(node_name)
+
+    def restart_kubelet(self, node_name):
+        self._instance.restart_kubelet(self, node_name)
