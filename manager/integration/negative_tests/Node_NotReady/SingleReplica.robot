@@ -1,5 +1,5 @@
 *** Settings ***
-Documentation     Test the resillence if cluster node happend exception
+Documentation     https://longhorn.github.io/longhorn-tests/manual/pre-release/ha/single-replica-node-down/
 ...
 ...               Keywords are imported from the resource file
 Resource          Keywords.resource
@@ -8,15 +8,16 @@ Test Teardown    cleanup_resources
 
 *** Variable ***
 ${volume_size_gb}=    5
+${replica_count}=    1
 
 *** Test Cases ***
 Scenario 1
     [Documentation]    RWO volume with replica on attached node, and power off the volume attached node
     [Tags]    RWO 
-    Given Create ${volume_size_gb} GB RWO volume with 1 replicas
+    Given Create ${volume_size_gb} GB RWO volume with ${replica_count} replica
     And Settings default-data-locality is enabled
     And Settings node-down-pod-deletion-policy is do-nothing
-    And Create pod with Deployment deployed
+    And Create 1 pod with Deployment deployed
     When Power off the node ${volunme_attached_node}
     Then Pod state should be terminating
     And Volume state should be unknown
@@ -29,10 +30,10 @@ Scenario 1
 Scenario 2
     [Documentation]    RWO volume with replica on attached node, and power off the volume attached node
     [Tags]    
-    Given Create ${volume_size_gb} GB RWO volume with 1 replicas
+    Given Create ${volume_size_gb} GB RWO volume with ${replica_count} replica
     And Settings default-data-locality is disabled
     And Settings node-down-pod-deletion-policy is do-nothing
-    And Create pod with Deployment deployed
+    And Create 1 pod with Deployment deployed
     When Power off the node ${volunme_attached_node}
     Then Pod state should be terminating
     And Volume state should be unknown
@@ -45,10 +46,10 @@ Scenario 2
 Scenario 3
     [Documentation]    RWO volume with replica on attached node, and power off the volume attached node
     [Tags]    
-    Given Create ${volume_size_gb} GB RWO volume with 1 replicas
+    Given Create ${volume_size_gb} GB RWO volume with ${replica_count} replica
     And Settings default-data-locality is strict-local
     And Settings node-down-pod-deletion-policy is do-nothing
-    And Create pod with Deployment deployed
+    And Create 1 pod with Deployment deployed
     When Power off the node ${volunme_attached_node}
     Then Pod state should be terminating
     And Volume state should be unknown
@@ -62,10 +63,10 @@ Scenario 3
 Scenario 4
     [Documentation]    RWO volume with replica on attached node, and power off the volume attached node
     [Tags]    
-    Given Create ${volume_size_gb} GB RWX volume with 1 replicas
+    Given Create ${volume_size_gb} GB RWX volume with ${replica_count} replica
     And Settings default-data-locality is enabled
     And Settings node-down-pod-deletion-policy is do-nothing
-    And Create pod with Deployment deployed
+    And Create 1 pod with Deployment deployed
     When Power off the node ${volunme_attached_node}
     Then Pod state should be terminating
     And Volume state should be unknown
@@ -78,10 +79,10 @@ Scenario 4
 Scenario 5
     [Documentation]    RWO volume with replica on attached node, and power off the volume attached node
     [Tags]    
-    Given Create ${volume_size_gb} GB RWX volume with 1 replicas
+    Given Create ${volume_size_gb} GB RWX volume with ${replica_count} replica
     And Settings default-data-locality is disabled
     And Settings node-down-pod-deletion-policy is do-nothing
-    And Create pod with Deployment deployed
+    And Create 1 pod with Deployment deployed
     When Power off the node ${volunme_attached_node}
     Then Pod state should be terminating
     And Volume state should be unknown
@@ -94,10 +95,10 @@ Scenario 5
 Scenario 6
     [Documentation]    RWO volume with replica on attached node, and power off the volume attached node
     [Tags]    
-    Given Create ${volume_size_gb} GB RWX volume with 1 replicas
+    Given Create ${volume_size_gb} GB RWX volume with ${replica_count} replica
     And Settings default-data-locality is strict-local
     And Settings node-down-pod-deletion-policy is do-nothing
-    And Create pod with Deployment deployed
+    And Create 1 pod with Deployment deployed
     When Power off the node ${volunme_attached_node}
     Then Pod state should be terminating
     And Volume state should be unknown
@@ -111,10 +112,10 @@ Scenario 6
 Scenario 7
     [Documentation]    RWO volume with replica on attached node, and power off the volume attached node
     [Tags]    
-    Given Create ${volume_size_gb} GB RWO volume with 1 replicas
+    Given Create ${volume_size_gb} GB RWO volume with ${replica_count} replica
     And Settings default-data-locality is enabled
     And Settings node-down-pod-deletion-policy is delete-both-statefulset-and-deployment-pod
-    And Create pod with Deployment deployed
+    And Create 1 pod with Deployment deployed
     When Power off the node ${volunme_attached_node}
     And Sleep 1 minutes
     Then Pod state should be ContainerCreating
@@ -128,10 +129,10 @@ Scenario 7
 Scenario 8
     [Documentation]    RWO volume with replica on attached node, and power off the volume attached node
     [Tags]    
-    Given Create ${volume_size_gb} GB RWO volume with 1 replicas
+    Given Create ${volume_size_gb} GB RWO volume with ${replica_count} replica
     And Settings default-data-locality is disabled
     And Settings node-down-pod-deletion-policy is delete-both-statefulset-and-deployment-pod
-    And Create pod with Deployment deployed
+    And Create 1 pod with Deployment deployed
     When Power off the node ${volunme_attached_node}
     And Sleep 1 minutes
     Then Pod state should be ContainerCreating
@@ -145,10 +146,10 @@ Scenario 8
 Scenario 9
     [Documentation]    RWO volume with replica on attached node, and power off the volume attached node
     [Tags]    
-    Given Create ${volume_size_gb} GB RWO volume with 1 replicas
+    Given Create ${volume_size_gb} GB RWO volume with ${replica_count} replica
     And Settings default-data-locality is strict-local
     And Settings node-down-pod-deletion-policy is delete-both-statefulset-and-deployment-pod
-    And Create pod with Deployment deployed
+    And Create 1 pod with Deployment deployed
     When Power off the node ${volunme_attached_node}
     And Sleep 1 minutes
     Then Pod state should be ContainerCreating
@@ -162,10 +163,10 @@ Scenario 9
 Scenario 10
     [Documentation]    RWO volume with replica on attached node, and power off the volume attached node
     [Tags]    
-    Given Create ${volume_size_gb} GB RWX volume with 1 replicas
+    Given Create ${volume_size_gb} GB RWX volume with ${replica_count} replica
     And Settings default-data-locality is enabled
     And Settings node-down-pod-deletion-policy is delete-both-statefulset-and-deployment-pod
-    And Create pod with Deployment deployed
+    And Create 1 pod with Deployment deployed
     When Power off the node ${volunme_attached_node}
     And Sleep 1 minutes
     Then Pod state should be ContainerCreating
@@ -179,10 +180,10 @@ Scenario 10
 Scenario 11
     [Documentation]    RWO volume with replica on attached node, and power off the volume attached node
     [Tags]    
-    Given Create ${volume_size_gb} GB RWX volume with 1 replicas
+    Given Create ${volume_size_gb} GB RWX volume with ${replica_count} replica
     And Settings default-data-locality is disabled
     And Settings node-down-pod-deletion-policy is delete-both-statefulset-and-deployment-pod
-    And Create pod with Deployment deployed
+    And Create 1 pod with Deployment deployed
     When Power off the node ${volunme_attached_node}
     And Sleep 1 minutes
     Then Pod state should be ContainerCreating
@@ -196,10 +197,10 @@ Scenario 11
 Scenario 12
     [Documentation]    RWO volume with replica on attached node, and power off the volume attached node
     [Tags]    
-    Given Create ${volume_size_gb} GB RWX volume with 1 replicas
+    Given Create ${volume_size_gb} GB RWX volume with ${replica_count} replica
     And Settings default-data-locality is strict-local
     And Settings node-down-pod-deletion-policy is delete-both-statefulset-and-deployment-pod
-    And Create pod with Deployment deployed
+    And Create 1 pod with Deployment deployed
     When Power off the node ${volunme_attached_node}
     And Sleep 1 minutes
     Then Pod state should be ContainerCreating

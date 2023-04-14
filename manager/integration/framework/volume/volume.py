@@ -39,6 +39,7 @@ class Volume(AbstractVolume):
     def write_random_data(self, volume_name, size):
         return self.volume.write_random_data(volume_name, size)
 
+    # delete replicas, if input parameters are empty then will delete all
     def delete_replica(self, volume_name="", node_name=""):
         return self.volume.delete_replica(volume_name, node_name)
     
@@ -48,6 +49,7 @@ class Volume(AbstractVolume):
     def get_engine(self, volume_name, node_name):
         return self.volume.get_engine(volume_name, node_name)
 
+    # delete engines, if input parameters are empty then will delete all
     def delete_engine(self, volume_name="", node_name=""):
         return self.volume.delete_engine(volume_name, node_name)
          
