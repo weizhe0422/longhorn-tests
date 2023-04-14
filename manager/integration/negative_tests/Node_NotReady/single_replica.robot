@@ -2,7 +2,7 @@
 Documentation     https://longhorn.github.io/longhorn-tests/manual/pre-release/ha/single-replica-node-down/
 ...
 ...               Keywords are imported from the resource file
-Resource          Keywords.resource
+Resource          keywords.resource
 Test setup    set_test_environment    ${TEST NAME}
 Test Teardown    cleanup_resources
 

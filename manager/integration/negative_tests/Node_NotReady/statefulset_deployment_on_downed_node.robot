@@ -2,7 +2,7 @@
 Documentation     https://longhorn.github.io/longhorn-tests/manual/pre-release/node/improve-node-failure-handling/
 ...
 ...               Keywords are imported from the resource file
-Resource          Keywords.resource
+Resource          keywords.resource
 Test setup    set_test_environment    ${TEST NAME}
 Test Teardown    cleanup_resources
 
@@ -19,9 +19,9 @@ Scenario 1
     And Create 2 pod with StatefulSet deployed
     And Settings node-down-pod-deletion-policy is do-nothing
     When Power off the node ${volunme_attached_node}
-    Then Pod field deletionTimestamp is not empty
-    And Pod state is terminating
-    And Pod count is 2
+    Then Pod field deletionTimestamp should not be empty
+    And Pod state should be terminating
+    And Pod count should be 2
 
 Scenario 2
     [Documentation]    RWO volume with replica on attached node, and power off the volume attached node
@@ -30,10 +30,10 @@ Scenario 2
     And Create 1 pod with Deployment deployed
     And Settings node-down-pod-deletion-policy is do-nothing
     When Power off the node ${volunme_attached_node}
-    Then Pod field deletionTimestamp is not empty
-    And Pod state is pending
+    Then Pod field deletionTimestamp should not be empty
+    And Pod state should be pending
     When Delete state pending pod
-    Then Wait 2 pod state is running
+    Then Wait 2 pod state should be running
     And Can access mount point 
 
 Scenario 3
@@ -43,9 +43,9 @@ Scenario 3
     And Create 2 pod with StatefulSet deployed
     And Settings node-down-pod-deletion-policy is delete-deployment-pod
     When Power off the node ${volunme_attached_node}
-    Then Pod field deletionTimestamp is not empty
-    And Pod state is terminating
-    And Pod count is 2
+    Then Pod field deletionTimestamp should not be empty
+    And Pod state should be terminating
+    And Pod count should be 2
 
 Scenario 4
     [Documentation]    RWO volume with replica on attached node, and power off the volume attached node
@@ -54,10 +54,10 @@ Scenario 4
     And Create 1 pod with Deployment deployed
     And Settings node-down-pod-deletion-policy is delete-deployment-pod
     When Power off the node ${volunme_attached_node}
-    Then Pod field deletionTimestamp is not empty
-    And Pod state is pending
+    Then Pod field deletionTimestamp should not be empty
+    And Pod state should be pending
     When Delete state pending pod
-    Then Wait 2 pod state is running
+    Then Wait 2 pod state should be running
     And Can access mount point 
 
 Scenario 5
@@ -67,10 +67,10 @@ Scenario 5
     And Create 2 pod with StatefulSet deployed
     And Settings node-down-pod-deletion-policy is delete-statefulset-pod
     When Power off the node ${volunme_attached_node}
-    Then Pod field deletionTimestamp is not empty
-    And Pod state is terminating
+    Then Pod field deletionTimestamp should not be empty
+    And Pod state should be terminating
     When Sleep ${wait_interval} minutes
-    Then Pod count is 2
+    Then Pod count should be 2
     And Can access mount point
 
 Scenario 6
@@ -80,10 +80,10 @@ Scenario 6
     And Create 2 pod with StatefulSet deployed
     And Settings node-down-pod-deletion-policy is delete-both-statefulset-and-deployment-pod
     When Power off the node ${volunme_attached_node}    
-    Then Pod field deletionTimestamp is not empty
-    And Pod state is terminating
+    Then Pod field deletionTimestamp should not be empty
+    And Pod state should be terminating
     When Sleep ${wait_interval} minutes
-    Then Pod count is 2
+    Then Pod count should be 2
     And Can access mount point
 
 Scenario 7
@@ -93,10 +93,10 @@ Scenario 7
     And Create 1 pod with Deployment deployed
     And Settings node-down-pod-deletion-policy is delete-statefulset-pod
     When Power off the node ${volunme_attached_node}    
-    Then Pod field deletionTimestamp is not empty
-    And Pod state is terminating
+    Then Pod field deletionTimestamp should not be empty
+    And Pod state should be terminating
     When Sleep ${wait_interval} minutes
-    Then Pod count is 1
+    Then Pod count should be 1
     And Can access mount point
 
 Scenario 8
@@ -106,8 +106,8 @@ Scenario 8
     And Create 1 pod with Deployment deployed
     And Settings node-down-pod-deletion-policy is delete-both-statefulset-and-deployment-pod
     When Power off the node ${volunme_attached_node}    
-    Then Pod field deletionTimestamp is not empty
-    And Pod state is terminating
+    Then Pod field deletionTimestamp should not be empty
+    And Pod state should be terminating
     When Sleep ${wait_interval} minutes
-    Then Pod count is 1
+    Then Pod count should be 1
     And Can access mount point
