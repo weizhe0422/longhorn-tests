@@ -7,7 +7,7 @@ Test setup    set_test_environment    ${TEST NAME}
 Test Teardown    cleanup_resources
 
 *** Variable ***
-${volume_size_gb}=    5
+${volume_size_gb}=    1
 ${wait_interval}=    5
 
 *** Test Cases ***
@@ -73,16 +73,16 @@ Scenario 5
     And Volume state should be healthy
     And All replicas state should be running
 
-RWO volume with replica on attached node and disconnect network 100 seconds the volume-attached node
-# Restart kubelet: RKE1: 'sudo docker restart kubelet' RKE2: 'systemctl restart rke2-agent.service'
-# Recover:
+scenario-6
+    [Documentation]    RWO volume with replica on attached node and disconnect network 100 seconds the volume-attached node
+    [Tags]
     Given Create ${volume_size_gb} GB RWO volume with 3 replicas
     And Attach volume to the node
-    When Write data into mount point
-    And Disconnect network 100 seconds the node ${volunme_attached_node}
-    Then Volume state should be
-    And Engine state should be
-    And Replica state should be
+    And Write data into mount point
+    When Disconnect node ${volunme_attached_node} network 100 seconds
+    Then Volume state should be unknown
+    And Engine state should be unknown
+    And Replica on the node ${volunme_attached_node} state should be unknown 
     
 RWO volume with replica on attached nod And Disconnect network 100 seconds the non volume-attached node
 # Restart kubelet: RKE1: 'sudo docker restart kubelet' RKE2: 'systemctl restart rke2-agent.service'

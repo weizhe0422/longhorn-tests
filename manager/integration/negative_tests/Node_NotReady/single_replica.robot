@@ -7,7 +7,7 @@ Test setup    set_test_environment    ${TEST NAME}
 Test Teardown    cleanup_resources
 
 *** Variable ***
-${volume_size_gb}=    5
+${volume_size_gb}=    1
 ${replica_count}=    1
 
 *** Test Cases ***

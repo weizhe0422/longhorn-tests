@@ -1,5 +1,4 @@
 from node_exec.abstract_cloud_provider import AbstractCloudProvider
-from utility import Utility, globals
 
 import boto3
 
@@ -48,26 +47,3 @@ class EC2(AbstractCloudProvider):
                 print(f'Starting EC2 instance:', {node_name})
                 instance.wait_until_running()
                 print(f'EC2 instance "{node_name}" has been running')
-    
-    def restart_kubelet(self, node_name=""):
-        if node_name == "":
-            print("Power on all of node instances")
-            node_instances = self.get_all_node_instances()
-        else:
-            print(f"Power on node instances: {node_name}")
-            node_instances = self.get_node_instance(node_name)
-
-        if globals.K8S_DISTRO == 'rke2':
-            cmd = 'systemctl restart rke2-server.service'
-        elif globals.K8S_DISTRO == 'rke1':
-            cmd = 'sudo docker restart kubelet'
-        else:
-            print(f'Unsupported K8S distros: {globals.K8S_DISTRO}')
-            return
-        
-        for instance in node_instances: 
-            ip_address = instance.public_ip_address
-            Utility.ssh_and_exec_cmd(ip_address, cmd)
-    
-    def network_parition(self, node_name=""):
-        return NotImplemented 

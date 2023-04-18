@@ -7,7 +7,7 @@ Test setup    set_test_environment    ${TEST NAME}
 Test Teardown    cleanup_resources
 
 *** Variable ***
-${volume_size_gb}=    5
+${volume_size_gb}=    1
 ${wait_interval}=    5
 
 *** Test Cases ***

@@ -24,8 +24,17 @@ Write data into mount point
 Power off the node ${node_name}
     power_off_node   ${node_name}
 
+Power on the node ${node_name}
+    power_on_node   ${node_name}
+
 Restart Kubelet on the node ${node_name}
-    restart_node_instance   ${node_name}
+    restart_kubelet   ${node_name}    0
+    
+Restart Kubelet on the node ${node_name} exceed ${POD_EVICTION_TIME_OUT} seconds
+    restart_kubelet   ${node_name}    ${POD_EVICTION_TIME_OUT}
+
+Disconnect node ${node_name} network ${TIME_INTERVAL} seconds
+    disconnect_network   ${node_name}    ${TIME_INTERVAL}
     
 Reboot the volume-attached node ${node_name}
     reboot_aws_ec2_instance   ${node_name}
@@ -46,7 +55,7 @@ Node ${node_name} state should be ${node_expect_state}
 
 Volume state should be ${volume_expect_state}
     ${volume_current_state} =   get_volume_state   ${volume_name}
-    check_workload_state    ${volume_current_state}    ${volume_expect_state}
+    Should Be Equal    ${volume_current_state}    ${volume_expect_state}
     
 Engine state should be ${engine_expect_state}
     ${engine_current_state} =   get_engine_state   ${volume_name}   ${volunme_attached_node}

@@ -85,11 +85,17 @@ class steps:
         self.volume.clean_up()
     
     def power_off_node(self, node_name):
-        print(f"power off node instance: {node_name}")
+        print(f"powering off node instance: {node_name}")
         if node_name == "":
             return print(f"failed: node_name: {node_name} is empty")
         self.node_exec.power_off_node(node_name=node_name)
-        
+
+    def power_on_node(self, node_name):
+        print(f"powering on node instance: {node_name}")
+        if node_name == "":
+            return print(f"failed: node_name: {node_name} is empty")
+        self.node_exec.power_on_node(node_name=node_name)
+
     def get_node_state(self, node_name):
         print(f"get node: {node_name}'s state")
         if node_name == "":
@@ -117,7 +123,7 @@ class steps:
     def get_replica_state(self, volume_name, node_name):
         print(f"get volume: {volume_name} on {node_name}'s replica state")
         if volume_name == "" or node_name == "":
-            return print(f"failed: volume_name: {volume_name} or node_name: {node_name} is empty")
+            return Exception(f"failed: volume_name: {volume_name} or node_name: {node_name} is empty")
         replicas = self.volume.get_replica(volume_name, node_name)
         replicas_states = {}
         for replica in replicas["items"]:
@@ -127,8 +133,13 @@ class steps:
     def check_workload_state(self, current_states, expect_state):        
         print(f"current state: {current_states}, expect state: {expect_state}")
         if current_states == None or expect_state == "":
-            return False
+            raise Exception(f'input parameters are empty: current_states={current_states}, expect_state={expect_state}')
         for state in current_states:
-            if state != expect_state:
-                return False
-        return True
+            if current_states[state] != expect_state:
+                raise Exception(f'name: {state}: {current_states[state]} != {expect_state}')
+    
+    def restart_kubelet(self, node_name, interval_time):
+        self.node_exec.restart_kubelet(node_name, interval_time)
+
+    def disconnect_network(self, node_name, interval_time):
+        self.node_exec.disconnect_network(node_name, interval_time)

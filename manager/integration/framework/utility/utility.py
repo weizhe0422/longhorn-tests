@@ -1,5 +1,6 @@
 from kubernetes import config, client
 from longhorn import from_env
+from utility import globals
 
 import string
 import random
@@ -39,14 +40,29 @@ class Utility:
         print(longhorn_client)
         return longhorn_client
 
-    @staticmethod
+    @classmethod
     def ssh_and_exec_cmd(cls, host, cmd):
         ssh = paramiko.SSHClient()
         ssh.set_missing_host_key_policy(paramiko.AutoAddPolicy())
 
         cls().ssh_connect_with_retry(ssh, host, 0)
-        stdin, stdout, stderr = ssh.exec_command(cmd)
-        print('fail to execute command:', stderr.read())
+        chan = ssh.get_transport().open_session()
+        
+        print(f'command to exectue:{cmd}')
+        chan.exec_command(cmd)
+
+        isExecCommand = True
+        while isExecCommand:
+            if chan.recv_ready():
+                print('response of command: ', chan.recv(4096).decode('ascii'))
+            
+            if chan.exit_status_ready():
+                if chan.recv_stderr_ready() and chan.recv_exit_status() != 0:
+                    raise Exception('fail to execute command:', chan.recv_stderr(4096).decode('ascii'))
+
+                isExecCommand = False
+                print(f'success of command execution: {chan.recv_exit_status()}')
+                ssh.close()
     
     def ssh_connect_with_retry(cls, ssh, ip_address, retries):
         if retries > 3:
@@ -57,7 +73,7 @@ class Utility:
             print('SSH into the instance: {}'.format(ip_address))
             config = paramiko.SSHConfig()
             try:
-                config.parse(open(os.path.expanduser(SSH_CONFIG_PATH)))
+                config.parse(open(os.path.expanduser(globals.SSH_CONFIG_PATH)))
             except IOError:
                 # No file found, so empty configuration
                 pass
@@ -76,7 +92,7 @@ class Utility:
             return True
         except Exception as e:
             print(e)
-            time.sleep(RETRY_INTERVAL)
+            time.sleep(globals.RETRY_INTERVAL)
             print('Retrying SSH connection to {}'.format(ip_address))
             cls.ssh_connect_with_retry(ssh, ip_address, retries)
     

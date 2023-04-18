@@ -17,7 +17,3 @@ class AbstractCloudProvider(ABC):
     @abstractmethod
     def power_on_node_instance(self, node_name=""):
         return NotImplemented
-    
-    @abstractmethod
-    def restart_kubelet(self, node_name=""):
-        return NotImplemented
