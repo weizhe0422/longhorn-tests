@@ -1,0 +1,123 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<robot generator="Robot 5.0 (Python 3.10.6 on linux)" generated="20230512 16:48:03.442" rpa="false" schemaversion="3">
+<suite id="s1" name="Robot Interactive Console" source="/home/ray_chang/.vscode/extensions/robocorp.robotframework-lsp-1.10.1/src/robotframework_ls/vendored/robotframework_interactive/robot_interactive_console.robot">
+<test id="s1-t1" name="Default Task/Test" line="5">
+<kw name="Interpreter Main Loop" library="MainLoop">
+<kw name="Given Create ${volume_size_gb} GB RWO volume with 2 replicas">
+<msg timestamp="20230512 16:48:03.840" level="FAIL">No keyword with name 'Given Create ${volume_size_gb} GB RWO volume with 2 replicas' found.</msg>
+<status status="FAIL" starttime="20230512 16:48:03.840" endtime="20230512 16:48:03.841"/>
+</kw>
+<kw name="And Attach volume to the node 0">
+<status status="NOT RUN" starttime="20230512 16:48:03.842" endtime="20230512 16:48:03.842"/>
+</kw>
+<kw name="And Write data into mount point">
+<status status="NOT RUN" starttime="20230512 16:48:03.842" endtime="20230512 16:48:03.842"/>
+</kw>
+<kw name="When Power off the node 0">
+<status status="NOT RUN" starttime="20230512 16:48:03.843" endtime="20230512 16:48:03.843"/>
+</kw>
+<kw name="And Sleep ${POD_EVICTION_TIME_OUT} seconds">
+<status status="NOT RUN" starttime="20230512 16:48:03.843" endtime="20230512 16:48:03.844"/>
+</kw>
+<kw name="Then Run keyword And Continue On Failure" library="BuiltIn">
+<arg>Wait Until Keyword Succeeds</arg>
+<arg>${retry_time_out} seconds</arg>
+<arg>${retry_interval} seconds</arg>
+<arg>Node 0 state should be NotReady</arg>
+<doc>Runs the keyword and continues execution even if a failure occurs.</doc>
+<status status="NOT RUN" starttime="20230512 16:48:03.844" endtime="20230512 16:48:03.844"/>
+</kw>
+<kw name="And Run keyword And Continue On Failure" library="BuiltIn">
+<arg>Wait Until Keyword Succeeds</arg>
+<arg>${retry_time_out} seconds</arg>
+<arg>${retry_interval} seconds</arg>
+<arg>Volume state should be unknown</arg>
+<doc>Runs the keyword and continues execution even if a failure occurs.</doc>
+<status status="NOT RUN" starttime="20230512 16:48:03.844" endtime="20230512 16:48:03.844"/>
+</kw>
+<kw name="And Run keyword And Continue On Failure" library="BuiltIn">
+<arg>Wait Until Keyword Succeeds</arg>
+<arg>${retry_time_out} seconds</arg>
+<arg>${retry_interval} seconds</arg>
+<arg>Engine state should be unknown</arg>
+<doc>Runs the keyword and continues execution even if a failure occurs.</doc>
+<status status="NOT RUN" starttime="20230512 16:48:03.844" endtime="20230512 16:48:03.844"/>
+</kw>
+<kw name="And Run keyword And Continue On Failure" library="BuiltIn">
+<arg>Wait Until Keyword Succeeds</arg>
+<arg>${retry_time_out} seconds</arg>
+<arg>${retry_interval} seconds</arg>
+<arg>Replica on the node 0 state should be unknown</arg>
+<doc>Runs the keyword and continues execution even if a failure occurs.</doc>
+<status status="NOT RUN" starttime="20230512 16:48:03.844" endtime="20230512 16:48:03.844"/>
+</kw>
+<kw name="And Run keyword And Continue On Failure" library="BuiltIn">
+<arg>Wait Until Keyword Succeeds</arg>
+<arg>${retry_time_out} seconds</arg>
+<arg>${retry_interval} seconds</arg>
+<arg>Replica on the node 1 state should be running</arg>
+<doc>Runs the keyword and continues execution even if a failure occurs.</doc>
+<status status="NOT RUN" starttime="20230512 16:48:03.844" endtime="20230512 16:48:03.844"/>
+</kw>
+<kw name="When Power on the node 0">
+<status status="NOT RUN" starttime="20230512 16:48:03.845" endtime="20230512 16:48:03.845"/>
+</kw>
+<kw name="Then Run keyword And Continue On Failure" library="BuiltIn">
+<arg>Wait Until Keyword Succeeds</arg>
+<arg>${retry_time_out} seconds</arg>
+<arg>${retry_interval} seconds</arg>
+<arg>Node 0 state should be Ready</arg>
+<doc>Runs the keyword and continues execution even if a failure occurs.</doc>
+<status status="NOT RUN" starttime="20230512 16:48:03.845" endtime="20230512 16:48:03.845"/>
+</kw>
+<kw name="And Run keyword And Continue On Failure" library="BuiltIn">
+<arg>Wait Until Keyword Succeeds</arg>
+<arg>${retry_time_out} seconds</arg>
+<arg>${retry_interval} seconds</arg>
+<arg>Volume state should be healthy</arg>
+<doc>Runs the keyword and continues execution even if a failure occurs.</doc>
+<status status="NOT RUN" starttime="20230512 16:48:03.845" endtime="20230512 16:48:03.845"/>
+</kw>
+<kw name="And Run keyword And Continue On Failure" library="BuiltIn">
+<arg>Wait Until Keyword Succeeds</arg>
+<arg>${retry_time_out} seconds</arg>
+<arg>${retry_interval} seconds</arg>
+<arg>Engine state should be running</arg>
+<doc>Runs the keyword and continues execution even if a failure occurs.</doc>
+<status status="NOT RUN" starttime="20230512 16:48:03.845" endtime="20230512 16:48:03.845"/>
+</kw>
+<kw name="And Run keyword And Continue On Failure" library="BuiltIn">
+<arg>Wait Until Keyword Succeeds</arg>
+<arg>${retry_time_out} seconds</arg>
+<arg>${retry_interval} seconds</arg>
+<arg>Replica on the node 0 state should be running</arg>
+<doc>Runs the keyword and continues execution even if a failure occurs.</doc>
+<status status="NOT RUN" starttime="20230512 16:48:03.845" endtime="20230512 16:48:03.845"/>
+</kw>
+<kw name="And Run keyword And Continue On Failure" library="BuiltIn">
+<arg>Wait Until Keyword Succeeds</arg>
+<arg>${retry_time_out} seconds</arg>
+<arg>${retry_interval} seconds</arg>
+<arg>Replica on the node 1 state should be running</arg>
+<doc>Runs the keyword and continues execution even if a failure occurs.</doc>
+<status status="NOT RUN" starttime="20230512 16:48:03.845" endtime="20230512 16:48:03.845"/>
+</kw>
+<status status="PASS" starttime="20230512 16:48:03.453" endtime="20230512 16:48:06.572"/>
+</kw>
+<status status="PASS" starttime="20230512 16:48:03.452" endtime="20230512 16:48:06.572"/>
+</test>
+<status status="PASS" starttime="20230512 16:48:03.443" endtime="20230512 16:48:06.572"/>
+</suite>
+<statistics>
+<total>
+<stat pass="1" fail="0" skip="0">All Tests</stat>
+</total>
+<tag>
+</tag>
+<suite>
+<stat pass="1" fail="0" skip="0" id="s1" name="Robot Interactive Console">Robot Interactive Console</stat>
+</suite>
+</statistics>
+<errors>
+</errors>
+</robot>
