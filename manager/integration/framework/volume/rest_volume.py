@@ -15,7 +15,7 @@ DEV_PATH = "/dev/longhorn/"
 class RestVolume(AbstractVolume):
 
     def __init__(self, node_exec):
-        self.longhorn_client = Utility().get_longhorn_client()
+        self.longhorn_client = Utility.get_longhorn_client()
         self.node_exec = node_exec
 
     def get(self, volume_name):

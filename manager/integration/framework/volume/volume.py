@@ -9,6 +9,7 @@ class Volume(AbstractVolume):
     _strategy = LonghornOperationStrategy.CRD
 
     def __init__(self, node_exec):
+        print(f'_strategy:{self._strategy}')
         if self._strategy == LonghornOperationStrategy.CRD:
             self.volume = CRDVolume(node_exec)
         else:

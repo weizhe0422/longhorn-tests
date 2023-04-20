@@ -25,15 +25,13 @@ class NodeExec:
 
     def cleanup(self):
         print("Clean node related resources")
-        ret = self.core_api.list_namespaced_pod(namespace=self.namespace)
-        for pod in ret.items:
+        for pod in self.node_exec_pod.values():
             res = self.core_api.delete_namespaced_pod(
                 name=pod.metadata.name,
-                namespace=pod.metadata.namespace,
+                namespace=self.namespace,
                 body=client.V1DeleteOptions()
             )
-            print(f'delete pod result: {res}')
-                        
+            print(res)
         self.core_api.delete_namespace(
             name=self.namespace
         )

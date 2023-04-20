@@ -1,6 +1,7 @@
 from kubernetes import config, client
 from longhorn import from_env
 from utility import globals
+from nodes import Nodes
 
 import string
 import random
@@ -10,11 +11,13 @@ import time
 
 class Utility:
 
+    @classmethod
     def generate_volume_name(cls):
         return "vol-" + \
             ''.join(random.choice(string.ascii_lowercase + string.digits)
                     for _ in range(6))
-
+    
+    @classmethod
     def init_k8s_api_client(cls):
         print('init_k8s_api_client')
         # to make it easier to develop and debug
@@ -29,7 +32,8 @@ class Utility:
         print('get_k8s_api_client')
         cls().init_k8s_api_client()
         return client.CoreV1Api()
-        
+    
+    @classmethod
     def get_longhorn_client(cls):
         print('get_longhorn_client')
         # manually expose longhorn client node port
@@ -95,3 +99,25 @@ class Utility:
             print('Retrying SSH connection to {}'.format(ip_address))
             cls.ssh_connect_with_retry(ssh, ip_address, retries)
     
+    @classmethod
+    def refresh_node_list(cls):
+        obj = globals.K8S_API_CLIENT.list_node()
+        print(f'refresh_node_list: {obj.items}')
+        for item in obj.items:
+            if ('node-role.kubernetes.io/control-plane' not in item.metadata.labels and \
+                'node-role.kubernetes.io/master' not in item.metadata.labels):
+                for address in item.status.addresses:
+                    print(f'address.type: {address.type}')
+                    if address.type == "InternalIP":
+                        print(f'node name:{item.metadata.name}, ip:{address.address}')
+                        Nodes(item.metadata.name, address.address)
+                
+            if 'node-role.kubernetes.io/worker' in item.metadata.labels and \
+                item.metadata.labels['node-role.kubernetes.io/worker'] == 'true':
+                for address in item.status.addresses:
+                    print(f'address.type: {address.type}')
+                    if address.type == "InternalIP":
+                        print(f'node name:{item.metadata.name}, ip:{address.address}')
+                        Nodes(item.metadata.name, address.address)
+            
+        print(f'all_nodes:{Nodes.all_nodes}')

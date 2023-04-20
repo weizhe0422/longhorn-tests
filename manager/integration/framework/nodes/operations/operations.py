@@ -3,7 +3,7 @@ import time
 from strategy import CloudProvider
 from nodes.operations.aws import EC2
 from nodes.operations.local_cluster import LocalCluster
-from utility import Utility, globals
+from utility import globals
 
 class Operations:
     
