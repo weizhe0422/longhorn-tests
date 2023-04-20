@@ -1,7 +1,8 @@
+import time
+
 from kubernetes import client
 from kubernetes.stream import stream
-
-import time
+from kubernetes.client.rest import ApiException
 
 DEFAULT_POD_TIMEOUT = 180
 DEFAULT_POD_INTERVAL = 1
@@ -24,16 +25,29 @@ class NodeExec:
         )
 
     def cleanup(self):
+        print("Clean node related resources")
+        
+        api_client = client.CoreV1Api()
+        
         for pod in self.node_exec_pod.values():
-            res = self.core_api.delete_namespaced_pod(
-                name=pod.metadata.name,
-                namespace=self.namespace,
-                body=client.V1DeleteOptions()
-            )
-            print(res)
-        self.core_api.delete_namespace(
-            name=self.namespace
-        )
+            try:
+                res_del_ns_pod = api_client.delete_namespaced_pod(
+                                        name=pod.metadata.name,
+                                        namespace=self.namespace,
+                                        body=client.V1DeleteOptions()
+                                    )
+                print(f'delete pod {pod.metadata.name} result: {res_del_ns_pod}')
+                
+            except ApiException as e:
+                print("delete pod {pod.metadata.name} exception: %s\n" % e)
+        
+        try:    
+            res_del_ns = api_client.delete_namespace(
+                                name=self.namespace
+                            )
+            print(f'delete namespace {self.namespace} result: {res_del_ns}')
+        except ApiException as e:
+            print("delete namespace exception: %s\n" % e)     
 
     def issue_cmd(self, node_name, cmd):
         pod = self.launch_pod(node_name)
@@ -121,3 +135,4 @@ class NodeExec:
                 time.sleep(DEFAULT_POD_INTERVAL)
             self.node_exec_pod[node_name] = pod
             return pod
+    
