@@ -1,0 +1,136 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<robot generator="Robot 5.0 (Python 3.10.6 on linux)" generated="20230502 17:10:22.889" rpa="false" schemaversion="3">
+<suite id="s1" name="Robot Interactive Console" source="/home/ray_chang/.vscode/extensions/robocorp.robotframework-lsp-1.10.1/src/robotframework_ls/vendored/robotframework_interactive/robot_interactive_console.robot">
+<test id="s1-t1" name="Default Task/Test" line="5">
+<kw name="Interpreter Main Loop" library="MainLoop">
+<kw name="Given Create ${volume_size_gb} GB RWO volume with 2 replicas">
+<msg timestamp="20230502 17:10:23.395" level="FAIL">No keyword with name 'Given Create ${volume_size_gb} GB RWO volume with 2 replicas' found.</msg>
+<status status="FAIL" starttime="20230502 17:10:23.395" endtime="20230502 17:10:23.395"/>
+</kw>
+<kw name="And Attach volume to the node 0">
+<status status="NOT RUN" starttime="20230502 17:10:23.396" endtime="20230502 17:10:23.396"/>
+</kw>
+<kw name="And Write data into mount point">
+<status status="NOT RUN" starttime="20230502 17:10:23.397" endtime="20230502 17:10:23.397"/>
+</kw>
+<kw name="When Power off the node 1">
+<status status="NOT RUN" starttime="20230502 17:10:23.397" endtime="20230502 17:10:23.397"/>
+</kw>
+<kw name="And Run keyword And Continue On Failure" library="BuiltIn">
+<arg>Wait Until Keyword Succeeds</arg>
+<arg>${retry_time_out} seconds</arg>
+<arg>${retry_interval} seconds</arg>
+<arg>Sleep ${POD_EVICTION_TIME_OUT} seconds</arg>
+<doc>Runs the keyword and continues execution even if a failure occurs.</doc>
+<status status="NOT RUN" starttime="20230502 17:10:23.397" endtime="20230502 17:10:23.397"/>
+</kw>
+<kw name="Then Run keyword And Continue On Failure" library="BuiltIn">
+<arg>Wait Until Keyword Succeeds</arg>
+<arg>${retry_time_out} seconds</arg>
+<arg>${retry_interval} seconds</arg>
+<arg>Node 1 state should be NotReady</arg>
+<doc>Runs the keyword and continues execution even if a failure occurs.</doc>
+<status status="NOT RUN" starttime="20230502 17:10:23.398" endtime="20230502 17:10:23.398"/>
+</kw>
+<kw name="And Run keyword And Continue On Failure" library="BuiltIn">
+<arg>Wait Until Keyword Succeeds</arg>
+<arg>${retry_time_out} seconds</arg>
+<arg>${retry_interval} seconds</arg>
+<arg>Volume state should be degraded</arg>
+<doc>Runs the keyword and continues execution even if a failure occurs.</doc>
+<status status="NOT RUN" starttime="20230502 17:10:23.398" endtime="20230502 17:10:23.398"/>
+</kw>
+<kw name="And Run keyword And Continue On Failure" library="BuiltIn">
+<arg>Wait Until Keyword Succeeds</arg>
+<arg>${retry_time_out} seconds</arg>
+<arg>${retry_interval} seconds</arg>
+<arg>Engine state should be running</arg>
+<doc>Runs the keyword and continues execution even if a failure occurs.</doc>
+<status status="NOT RUN" starttime="20230502 17:10:23.398" endtime="20230502 17:10:23.398"/>
+</kw>
+<kw name="And Run keyword And Continue On Failure" library="BuiltIn">
+<arg>Wait Until Keyword Succeeds</arg>
+<arg>${retry_time_out} seconds</arg>
+<arg>${retry_interval} seconds</arg>
+<arg>Replica on the node 0 state should be running</arg>
+<doc>Runs the keyword and continues execution even if a failure occurs.</doc>
+<status status="NOT RUN" starttime="20230502 17:10:23.398" endtime="20230502 17:10:23.398"/>
+</kw>
+<kw name="And Run keyword And Continue On Failure" library="BuiltIn">
+<arg>Wait Until Keyword Succeeds</arg>
+<arg>${retry_time_out} seconds</arg>
+<arg>${retry_interval} seconds</arg>
+<arg>Replica on the node 1 state should be stopped</arg>
+<doc>Runs the keyword and continues execution even if a failure occurs.</doc>
+<status status="NOT RUN" starttime="20230502 17:10:23.398" endtime="20230502 17:10:23.398"/>
+</kw>
+<kw name="When Power on the node 1">
+<status status="NOT RUN" starttime="20230502 17:10:23.399" endtime="20230502 17:10:23.399"/>
+</kw>
+<kw name="Then Run keyword And Continue On Failure" library="BuiltIn">
+<arg>Wait Until Keyword Succeeds</arg>
+<arg>${retry_time_out} seconds</arg>
+<arg>${retry_interval} seconds</arg>
+<arg>Node 1 state should be Ready</arg>
+<doc>Runs the keyword and continues execution even if a failure occurs.</doc>
+<status status="NOT RUN" starttime="20230502 17:10:23.399" endtime="20230502 17:10:23.399"/>
+</kw>
+<kw name="And Run keyword And Continue On Failure" library="BuiltIn">
+<arg>Wait Until Keyword Succeeds</arg>
+<arg>${retry_time_out} seconds</arg>
+<arg>${retry_interval} seconds</arg>
+<arg>Volume state should be healthy</arg>
+<doc>Runs the keyword and continues execution even if a failure occurs.</doc>
+<status status="NOT RUN" starttime="20230502 17:10:23.399" endtime="20230502 17:10:23.399"/>
+</kw>
+<kw name="And Run keyword And Continue On Failure" library="BuiltIn">
+<arg>Wait Until Keyword Succeeds</arg>
+<arg>${retry_time_out} seconds</arg>
+<arg>${retry_interval} seconds</arg>
+<arg>Engine state should be running</arg>
+<doc>Runs the keyword and continues execution even if a failure occurs.</doc>
+<status status="NOT RUN" starttime="20230502 17:10:23.399" endtime="20230502 17:10:23.399"/>
+</kw>
+<kw name="And Run keyword And Continue On Failure" library="BuiltIn">
+<arg>Wait Until Keyword Succeeds</arg>
+<arg>${retry_time_out} seconds</arg>
+<arg>${retry_interval} seconds</arg>
+<arg>Replica on the node 0 state should be running</arg>
+<doc>Runs the keyword and continues execution even if a failure occurs.</doc>
+<status status="NOT RUN" starttime="20230502 17:10:23.399" endtime="20230502 17:10:23.399"/>
+</kw>
+<kw name="And Run keyword And Continue On Failure" library="BuiltIn">
+<arg>Wait Until Keyword Succeeds</arg>
+<arg>${retry_time_out} seconds</arg>
+<arg>${retry_interval} seconds</arg>
+<arg>Replica on the node 1 state should be stopped</arg>
+<doc>Runs the keyword and continues execution even if a failure occurs.</doc>
+<status status="NOT RUN" starttime="20230502 17:10:23.399" endtime="20230502 17:10:23.399"/>
+</kw>
+<kw name="And Run keyword And Continue On Failure" library="BuiltIn">
+<arg>Wait Until Keyword Succeeds</arg>
+<arg>${retry_time_out} seconds</arg>
+<arg>${retry_interval} seconds</arg>
+<arg>Check data is intact</arg>
+<doc>Runs the keyword and continues execution even if a failure occurs.</doc>
+<status status="NOT RUN" starttime="20230502 17:10:23.399" endtime="20230502 17:10:23.399"/>
+</kw>
+<status status="PASS" starttime="20230502 17:10:22.899" endtime="20230502 17:10:25.899"/>
+</kw>
+<status status="PASS" starttime="20230502 17:10:22.898" endtime="20230502 17:10:25.899"/>
+</test>
+<status status="PASS" starttime="20230502 17:10:22.889" endtime="20230502 17:10:25.900"/>
+</suite>
+<statistics>
+<total>
+<stat pass="1" fail="0" skip="0">All Tests</stat>
+</total>
+<tag>
+</tag>
+<suite>
+<stat pass="1" fail="0" skip="0" id="s1" name="Robot Interactive Console">Robot Interactive Console</stat>
+</suite>
+</statistics>
+<errors>
+</errors>
+</robot>
