@@ -12,9 +12,8 @@ ${retry_time_out}=    600
 ${retry_interval}=    5
 
 *** Test Cases ***
-1-Reboot RWO volume attached node with replica
-    [Documentation]    RWO volume with replica on attached node and powering off the volume attached node  
-    [Tags]    PassFirstTest RWO PowerOffAttachedNode ReplicaOnAttachedNode DuringDataWriting
+1-RWO 3 replicas abnormal attached and replica node 
+    [Tags]    PassFirstTest RWO 3Replicas AttachReplicaSameNode AbnormalAttachedNode AbnormalReplicaNode
     # Recover: After restart the node, volume should be detached and replica is failed. Need manual to do reattached.
     Given Create ${volume_size_gb} GB RWO volume with 3 replicas
     And Attach volume to the node 0
@@ -29,8 +28,8 @@ ${retry_interval}=    5
     And Run keyword And Continue On Failure    Wait Until Keyword Succeeds    ${retry_time_out} seconds    ${retry_interval} seconds    Check data is intact
     [Teardown]    cleanup_resources
 
-2-Reboot RWO volume not-attached node with replica
-    [Tags]    PassFirstTest RWO PowerOffNonAttachedNode ReplicaOnAttachedNode DuringDataWriting
+2-RWO 3 replicas abnormal replica but non attached node
+    [Tags]    PassFirstTest RWO 3Replicas AttachReplicaDiffNode AbnormalNonAttachedNode AbnormalReplicaNode
     # Recover: After restart the node, delete the stopped replica, and re-update the replica count to do rebuilding
     Given Create ${volume_size_gb} GB RWO volume with 3 replicas
     And Attach volume to the node 0
@@ -45,9 +44,8 @@ ${retry_interval}=    5
     And Run keyword And Continue On Failure    Wait Until Keyword Succeeds    ${retry_time_out} seconds    ${retry_interval} seconds    Check data is intact
     [Teardown]    cleanup_resources
 
-3-Reboot RWO volume attached node without replica
-    [Documentation]    
-    [Tags]    PassFirstTest RWO PowerOffAttachedNode ReplicaOnAttachedNode DuringDataWriting
+3-RWO 2 replicas abnormal non attached and no replica node   
+    [Tags]    PassFirstTest RWO 3Replicas AttachReplicaSameNode AbnormalNonAttachedNode AbnormalNonReplicaNode
     Given Create ${volume_size_gb} GB RWO volume with 2 replicas
     And Get node index without replica
     And Attach volume to the node ${node_number_without_replica}[0]
@@ -62,9 +60,8 @@ ${retry_interval}=    5
     And Run keyword And Continue On Failure    Wait Until Keyword Succeeds    ${retry_time_out} seconds    ${retry_interval} seconds    Check data is intact
     [Teardown]    cleanup_resources
 
-4-Reboot RWO volume not attached node without replica
-    [Documentation]
-    [Tags]    PassFirstTest RWO PowerOffNonAttachedNode ReplicaOnAttachedNode DuringDataWriting
+4-RWO 2 replicas abnormal replica but non attached node
+    [Tags]    PassFirstTest RWO 2Replicas AttachReplicaDiffNode AbnormalNonAttachedNode AbnormalReplicaNode
     Given Create ${volume_size_gb} GB RWO volume with 2 replicas
     And Get node index with replica
     And Get node index without replica
@@ -80,9 +77,8 @@ ${retry_interval}=    5
     And Run keyword And Continue On Failure    Wait Until Keyword Succeeds    ${retry_time_out} seconds    ${retry_interval} seconds    Check data is intact
     [Teardown]    cleanup_resources
     
-5-Reboot 2 replica RWO volume attached node with replica
-    [Documentation]
-    [Tags]    PassFirstTest RWO PowerOffNonAttachedNode ReplicaOnAttachedNode DuringDataWriting
+5-RWO 2 replicas abnormal attached and replica node
+    [Tags]    PassFirstTest RWO 2Replicas AttachReplicaSameNode AbnormalAttachedNode AbnormalReplicaNode
     Given Create ${volume_size_gb} GB RWO volume with 2 replicas
     And Get node index with replica
     And Attach volume to the node ${node_number_with_replica}[0]
@@ -97,9 +93,8 @@ ${retry_interval}=    5
     And Run keyword And Continue On Failure    Wait Until Keyword Succeeds    ${retry_time_out} seconds    ${retry_interval} seconds    Check data is intact
     [Teardown]    cleanup_resources
     
-6-Reboot 2 replica RWO volume non-attached node without replica
-    [Documentation]
-    [Tags]    RWO PowerOffNonAttachedNode ReplicaOnAttachedNode DuringDataWriting
+6-RWO 2 replicas abnormal on non attached and no replica node
+    [Tags]    PassFirstTest RWO 2Replicas AttachReplicaDiffNode AbnormalNonAttachedNode AbnormalNonReplicaNode
     Given Create ${volume_size_gb} GB RWO volume with 2 replicas
     And Get node index with replica
     And Get node index without replica
@@ -115,9 +110,8 @@ ${retry_interval}=    5
     And Run keyword And Continue On Failure    Wait Until Keyword Succeeds    ${retry_time_out} seconds    ${retry_interval} seconds    Check data is intact
     [Teardown]    cleanup_resources
     
-7-Reboot 2 replica RWO volume non-attached node with replica
-    [Documentation]
-    [Tags]    RWO PowerOffNonAttachedNode ReplicaOnAttachedNode DuringDataWriting
+7-RWO 2 replicas abnormal attached and replica but diff node
+    [Tags]    PassFirstTest RWO 2Replicas AttachReplicaDiffNode AbnormalNonAttachedNode AbnormalReplicaNode
     Given Create ${volume_size_gb} GB RWO volume with 2 replicas
     And Get node index with replica
     And Attach volume to the node ${node_number_with_replica}[0]
@@ -131,4 +125,3 @@ ${retry_interval}=    5
     And Run keyword And Continue On Failure    Wait Until Keyword Succeeds    ${retry_time_out} seconds    ${retry_interval} seconds    Replica on the node 2 state should be running
     And Run keyword And Continue On Failure    Wait Until Keyword Succeeds    ${retry_time_out} seconds    ${retry_interval} seconds    Check data is intact
     [Teardown]    cleanup_resources
-    
