@@ -1,7 +1,9 @@
 *** Settings ***
 Documentation    Volume Keywords
 
-Library    ../libs/keywords/volume_keywords.py
+Library    ../libs/steps.py
+
+Resource    ../keywords/utility.resource
 
 *** Keywords ***
 Create a volume ${size} GB with ${replica_count} replicas

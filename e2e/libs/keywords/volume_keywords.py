@@ -9,7 +9,7 @@ class volume_keywords:
     ROBOT_LIBRARY_SCOPE = 'TEST'
 
     def __init__(self):
-        Utility().init_k8s_api_client()
+        Utility.init_k8s_api_client()
 
 
     def set_test_name(self, test_name):
@@ -20,7 +20,7 @@ class volume_keywords:
 
     def create_volume(self, size, replica_count):
         print('create_volume')
-        volume_name = Utility().generate_volume_name()
+        volume_name = Utility.generate_volume_name()
         self.volume.create(volume_name, size, replica_count)
         return volume_name
 

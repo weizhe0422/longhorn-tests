@@ -1,4 +1,4 @@
-from volume.base import Base
+from volume.abstract_volume import AbstractVolume
 from utility import Utility
 
 import time
@@ -12,7 +12,7 @@ VOLUME_FRONTEND_ISCSI = "iscsi"
 DEV_PATH = "/dev/longhorn/"
 
 
-class Rest(Base):
+class RestVolume(AbstractVolume):
 
     def __init__(self, node_exec):
         self.longhorn_client = Utility.get_longhorn_client()
