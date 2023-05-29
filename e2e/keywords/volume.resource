@@ -1,7 +1,7 @@
 *** Settings ***
 Documentation    Volume Keywords
 
-Library    ../libs/keywords/volume_keywords.py
+Library    ../libs/steps.py
 
 *** Keywords ***
 Create a volume ${size} GB with ${replica_count} replicas
@@ -32,3 +32,13 @@ Wait until all replicas rebuilt
     wait_for_replica_rebuilding_complete    ${volume_name}    0
     wait_for_replica_rebuilding_complete    ${volume_name}    1
     wait_for_replica_rebuilding_complete    ${volume_name}    2
+
+Volume ${volume_name} data checksum should be ${volume_data_checksum}
+    check_data    ${volume_name}    ${volume_data_checksum}
+
+Volume state should be ${expected_volume_state}
+    Run keyword And Continue On Failure    Wait Until Keyword Succeeds    ${retry_timeout_second} seconds    ${retry_interval} seconds    Check volume state should be ${expected_volume_state}
+
+Check volume state should be ${expected_volume_state}
+    ${volume_current_state} =   get_volume_state   ${volume_name}
+    Should Be Equal    ${volume_current_state}    ${expected_volume_state}
