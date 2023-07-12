@@ -1,0 +1,140 @@
+import time
+import logging
+import subprocess
+
+from functools import partial
+from multiprocessing import Pool
+from strategy import CloudProvider
+from node.operations.aws import EC2
+from node.operations.local_cluster import LocalCluster
+from utility import globalVars, Utility
+from volume.rest_volume import RestVolume
+
+class Operations:
+
+    _instance = None
+
+    def __init__(self, cloud_provider):
+        if cloud_provider == CloudProvider.AWS.value:
+            logging.info("cloude provider: AWS")
+            self.__class__._instance  = EC2()
+        elif cloud_provider == CloudProvider.LOCAL_CLUSTER.value:
+            logging.info("cloude provider: Local")
+            self.__class__._instance = LocalCluster()
+        else:
+            Exception(f"could not recognize the cloud provider: {cloud_provider}")
+
+    @classmethod
+    def cleanup(cls):
+        # Turn the power off node back
+        cls._instance.power_on_node_instance()
+
+    @classmethod
+    def power_off_node(cls, node_name):
+        cls._instance.power_off_node_instance(node_name)
+
+    @classmethod
+    def power_on_node(cls, node_name):
+        cls._instance.power_on_node_instance(node_name)
+
+    @classmethod
+    def reboot_node(cls, node_name):
+        cls._instance.reboot_node_instance(node_name)
+
+    @classmethod
+    def restart_kubelet(cls, node_name, interval_time):
+        logging.info(f"restarting kubelet on node instances: {node_name}")
+        node_instances = cls._instance.get_node_instance(node_name)
+
+        k8s_distro = globalVars.variables["K8S_DISTRO"]
+        if k8s_distro == 'rke2':
+            cmd_stop = 'sudo systemctl stop rke2-server.service'
+            cmd_start = 'sudo systemctl start rke2-server.service'
+            cmd_restart = 'sudo systemctl restart rke2-server.service'
+        elif k8s_distro == 'rke1':
+            cmd_stop = 'sudo docker stop kubelet'
+            cmd_start = 'sudo docker run kubelet'
+            cmd_restart = 'sudo docker restart kubelet'
+        elif k8s_distro == 'k3s':
+            cmd_stop = 'systemctl stop k3s-agent.service'
+            cmd_start = 'systemctl start k3s-agent.service'
+            cmd_restart = 'systemctl restart k3s-agent.service'
+        else:
+            raise Exception(f'Unsupported K8S distros: {k8s_distro}')
+
+        for instance in node_instances:
+            ip_address = instance.public_ip_address
+            if int(interval_time) == 0:
+                Utility.ssh_and_exec_cmd(ip_address, cmd_restart)
+            else:
+                # stop all nodes kubelet service
+                Utility.ssh_and_exec_cmd(ip_address, cmd_stop)
+                # wait for some time
+                time.sleep(int(interval_time))
+                # start all nodes kubelet service
+                Utility.ssh_and_exec_cmd(ip_address, cmd_start)
+
+    @classmethod
+    def network_operate_commands(cls, action):
+        iptable_commands = ['sudo iptables -P INPUT {ACTION}',
+                            'sudo iptables -P FORWARD {ACTION}',
+                            'sudo iptables -P OUTPUT {ACTION}']
+        return list(map(lambda x:x.format(ACTION=action), iptable_commands))
+
+    @classmethod
+    def disconnect_network(cls, node_name):
+        logging.info(f"droping network on node instances: {node_name}")
+        node_instances = cls._instance.get_node_instance(node_name)
+
+        # Drop network traffic
+        ip_address = node_instances['ip_address']
+        execute_commands = cls.network_operate_commands('DROP')
+        logging.debug(f"ip address={ip_address}, commands={execute_commands}")
+        Utility.ssh_and_exec_cmd(ip_address, '\n'.join(execute_commands))
+
+    @classmethod
+    def connect_network(cls, node_name):
+        logging.info(f"accept network on node instances: {node_name}")
+        node_instances = cls._instance.get_node_instance(node_name)
+
+        # Accept network traffic
+        ip_address = node_instances['ip_address']
+        execute_commands = cls.network_operate_commands('ACCEPT')
+        logging.debug(f"ip address={ip_address}, commands={execute_commands}")
+        Utility.ssh_and_exec_cmd(ip_address, '\n'.join(execute_commands))
+
+    @classmethod
+    def run_command(cls, cmd):
+        return subprocess.check_output(cmd, shell=True).decode()
+
+    @classmethod
+    def commands(cls, volume_end_point):
+        yield f'sudo dd if=/dev/urandom of={volume_end_point} bs=1M count=1024'
+
+        execute_commands = []
+        execute_commands.extend(['sudo sleep 1'])
+        execute_commands.extend(cls.network_operate_commands('DROP'))
+        execute_commands.extend(['sudo sleep 100'])
+        execute_commands.extend(cls.network_operate_commands('ACCEPT'))
+        yield '\n'.join(execute_commands)
+
+    @classmethod
+    def interrupt_network(cls, node_name, time_interval, volume_end_point):
+        logging.info(f"interrupt network on node {node_name} for {time_interval} seconds")
+        node_instances = cls._instance.get_node_instance(node_name)
+
+        for instance in node_instances:
+            ip_address = instance.public_ip_address
+            logging.debug(f'target instance: {instance}, ip address: {ip_address}')
+            with Pool(processes=2) as pool:
+                pool.map(partial(Utility.ssh_and_exec_cmd, ip_address), cls.commands(volume_end_point))
+
+
+    @classmethod
+    def write_random_data_v2(cls, node_name, size):
+        execute_commands = [f'sudo dd if=/dev/urandom of=/dev/longhorn/test-1 bs=2M count={size}']
+        node_instances = cls._instance.get_node_instance(node_name)
+
+        for instance in node_instances:
+            ip_address = instance.public_ip_address
+            Utility.ssh_and_exec_cmd(ip_address, '\n'.join(execute_commands))
